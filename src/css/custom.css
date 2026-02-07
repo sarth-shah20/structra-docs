@@ -1,0 +1,127 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------
+   1. COLOR VARIABLES (The Structra Design System)
+------------------------------------------------------------ */
+:root {
+  /* Brand Colors (Structra Blue) */
+  --ifm-color-primary: #2563eb;        /* blue-600 */
+  --ifm-color-primary-dark: #1d4ed8;   /* blue-700 */
+  --ifm-color-primary-darker: #1e40af; /* blue-800 */
+  --ifm-color-primary-darkest: #1e3a8a;/* blue-900 */
+  --ifm-color-primary-light: #3b82f6;  /* blue-500 */
+  --ifm-color-primary-lighter: #60a5fa;/* blue-400 */
+  --ifm-color-primary-lightest: #93c5fd;/* blue-300 */
+
+  /* Light Mode Backgrounds */
+  --ifm-background-color: #ffffff;
+  --ifm-background-surface-color: #f9fafb; /* gray-50 */
+  --ifm-navbar-background-color: #ffffff;
+  
+  /* Typography */
+  --ifm-font-family-base: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif;
+  --ifm-heading-color: #111827; /* gray-900 */
+  --ifm-font-color-base: #374151; /* gray-700 */
+}
+
+/* ------------------------------------------------------------
+   2. DARK MODE OVERRIDES (The "Black/Dark" Requirement)
+------------------------------------------------------------ */
+[data-theme='dark'] {
+  /* Re-map brand colors if needed, usually blue still works */
+  --ifm-color-primary: #3b82f6; /* Lighter blue for dark mode contrast */
+  
+  /* Dark Mode Backgrounds */
+  --ifm-background-color: #0f172a; /* slate-900 (Deep Black/Blue) */
+  --ifm-background-surface-color: #1e293b; /* slate-800 */
+  --ifm-navbar-background-color: #0f172a;
+  
+  /* Typography */
+  --ifm-heading-color: #f3f4f6; /* gray-100 */
+  --ifm-font-color-base: #e5e7eb; /* gray-200 */
+  
+  /* Borders */
+  --ifm-border-color: #334155; /* slate-700 */
+}
+
+/* ------------------------------------------------------------
+3. COMPONENT OVERRIDES
+------------------------------------------------------------ */
+
+/* Navbar: Clean border, no shadow in light mode */
+
+/* Links in Navbar */
+.header-link {
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+/* Footer: Clean Top Border */
+.footer {
+  background-color: var(--ifm-background-surface-color);
+  border-top: 1px solid var(--ifm-border-color);
+}
+
+/* Sidebar: Clean up the active state */
+.menu__link--active {
+  background-color: rgba(37, 99, 235, 0.1); /* 10% Blue opacity */
+  color: var(--ifm-color-primary);
+  font-weight: 600;
+}
+
+/* 1. Container Styles */
+.navbar {
+  height: 3.5rem; /* h-14 */
+  background-color: rgba(255, 255, 255, 0.5) !important; /* bg-white/50 */
+  backdrop-filter: blur(24px); /* backdrop-blur-xl */
+  -webkit-backdrop-filter: blur(24px); /* Safari support */
+  border-bottom: 1px solid #e5e7eb !important; /* border-gray-200 */
+  box-shadow: none !important; /* Remove default shadow */
+  padding: 0 1.5rem; /* Match px-6 */
+}
+
+/* 2. Link Styles (Text) */
+.navbar__item,
+.navbar__link {
+  font-family: system-ui, -apple-system, sans-serif; /* Standard font stack */
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 500; /* font-medium */
+  color: #374151; /* text-gray-700 */
+}
+
+/* 3. Hover Effects */
+.navbar__link:hover,
+.navbar__item:hover {
+  color: #111827; /* text-gray-900 */
+  background-color: transparent; /* Clean hover */
+}
+
+/* 4. Logo Styling */
+.navbar__logo {
+  height: 1.75rem; /* h-7 to match h-8 approx */
+  margin-right: 0.5rem;
+}
+
+/* 5. Dark Mode Toggle Styling (Make it subtle) */
+.clean-btn.toggleButton_gllP {
+  margin-left: 1rem;
+}
+
+/* ------------------------------------------------------------
+   DARK MODE OVERRIDES
+------------------------------------------------------------ */
+[data-theme='dark'] .navbar {
+  background-color: rgba(15, 23, 42, 0.7) !important; /* Slate-900 with opacity */
+  border-bottom: 1px solid #1e293b !important; /* Slate-800 */
+  color: #e5e7eb;
+}
+
+[data-theme='dark'] .navbar__link {
+  color: #9ca3af; /* Gray-400 */
+}
+
+[data-theme='dark'] .navbar__link:hover {
+  color: #f3f4f6; /* White */
+}
