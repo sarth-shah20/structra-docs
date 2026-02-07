@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 /* ------------------------------------------------------------
-   1. COLOR VARIABLES (The Structra Design System)
+1. COLOR VARIABLES (The Structra Design System)
 ------------------------------------------------------------ */
 :root {
   /* Brand Colors (Structra Blue) */
@@ -110,7 +110,7 @@
 }
 
 /* ------------------------------------------------------------
-   DARK MODE OVERRIDES
+DARK MODE OVERRIDES
 ------------------------------------------------------------ */
 [data-theme='dark'] .navbar {
   background-color: rgba(15, 23, 42, 0.7) !important; /* Slate-900 with opacity */

@@ -65,7 +65,7 @@ themeConfig:
       colorMode: {
         defaultMode: 'light',
         disableSwitch: false,
-        respectPrefersColorScheme: true,
+        respectPrefersColorScheme: false,
       },
       
       // 2. Navbar: Matches your AuthenticatedNavbar.jsx
