@@ -70,7 +70,7 @@ themeConfig:
       
       // 2. Navbar: Matches your AuthenticatedNavbar.jsx
       navbar: {
-        title: 'Structra',
+        title: 'structra.docs',
         logo: {
           alt: 'Structra Logo',
           src: 'img/logo.png', // Ensure this file exists in /static/img/
