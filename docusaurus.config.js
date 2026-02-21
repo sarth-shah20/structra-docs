@@ -111,8 +111,8 @@ themeConfig:
             title: 'Resources',
             items: [
               { label: 'Documentation', to: '/' },
-              { label: 'Principles', to: '/principles' },
-              { label: 'API Reference', to: '/api' },
+              { label: 'Evaluation Principles', to: '/evaluation-principles' },
+              { label: 'Structra App', href: 'https://structra.cloud/app' },
             ],
           },
           {
@@ -120,8 +120,8 @@ themeConfig:
             items: [
               { label: 'About', href: 'https://structra.cloud/about' },
               { label: 'Contact', href: 'mailto:support@structra.cloud' },
-              { label: 'Privacy Policy', to: '/privacy' }, // create standard md files for these
-              { label: 'Terms of Service', to: '/terms' },
+              { label: 'Privacy Policy', href: 'https://structra.cloud/privacy' },
+              { label: 'Terms of Service', href: 'https://structra.cloud/terms' },
             ],
           },
         ],
