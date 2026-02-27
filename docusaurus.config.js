@@ -61,25 +61,24 @@ const config = {
 themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      // 1. Color Mode: Respect user system, but allow toggle
+      // 1. Color Mode: Default to user browser/system preference, allow toggle
       colorMode: {
         defaultMode: 'light',
         disableSwitch: false,
-        respectPrefersColorScheme: false,
+        respectPrefersColorScheme: true,
       },
       
       // 2. Navbar: Matches your AuthenticatedNavbar.jsx
       navbar: {
-        title: 'structra.docs',
+        title: 'structra.cloud',
         logo: {
           alt: 'Structra Logo',
           src: 'img/logo.png', // Ensure this file exists in /static/img/
           srcDark: 'img/logo.png', // Or a white version if you have one
-          href: 'https://structra.cloud/app', // Clicking logo goes to App, not docs home
+          href: '/',
           target: '_self',
         },
         items: [
-          // Right Side: Navigation back to App
           {
             href: 'https://structra.cloud/app/workspaces',
             label: 'Workspaces',
@@ -87,10 +86,16 @@ themeConfig:
             className: 'header-link',
           },
           {
-            href: 'https://github.com/sarth-shah20/structra-backend', // Optional: Repo link
-            label: 'GitHub',
+            href: 'https://structra.cloud/pricing',
+            label: 'Pricing',
             position: 'right',
-            className: 'header-github-link',
+            className: 'header-link',
+          },
+          {
+            href: 'https://structra.cloud/app',
+            label: 'Open App',
+            position: 'right',
+            className: 'header-cta',
           },
         ],
       },

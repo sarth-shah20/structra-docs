@@ -2,149 +2,303 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ------------------------------------------------------------
-1. COLOR VARIABLES (The Structra Design System)
------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap');
+
 :root {
-  /* Brand Colors (Structra Blue) */
-  --ifm-color-primary: #2563eb;        /* blue-600 */
-  --ifm-color-primary-dark: #1d4ed8;   /* blue-700 */
-  --ifm-color-primary-darker: #1e40af; /* blue-800 */
-  --ifm-color-primary-darkest: #1e3a8a;/* blue-900 */
-  --ifm-color-primary-light: #3b82f6;  /* blue-500 */
-  --ifm-color-primary-lighter: #60a5fa;/* blue-400 */
-  --ifm-color-primary-lightest: #93c5fd;/* blue-300 */
+  color-scheme: light;
+  --bg: #f8fafc;
+  --bg-soft: #f1f5f9;
+  --surface: #ffffff;
+  --surface-2: #f8fafc;
+  --surface-3: #eef2f7;
+  --border: #e2e8f0;
+  --border-strong: #cbd5e1;
+  --text: #0a0a0a;
+  --text-muted: #64748b;
+  --text-subtle: #94a3b8;
+  --accent: #2563eb;
+  --accent-2: #60a5fa;
+  --accent-soft: #eff6ff;
+  --danger: #ef4444;
+  --shadow-1: 0 4px 20px rgba(15, 23, 42, 0.08);
 
-  /* Light Mode Backgrounds */
-  --ifm-background-color: #ffffff;
-  --ifm-background-surface-color: #f9fafb; /* gray-50 */
-  --ifm-navbar-background-color: #ffffff;
-  
-  /* Typography */
-  --ifm-font-family-base: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif;
-  --ifm-heading-color: #111827; /* gray-900 */
-  --ifm-font-color-base: #374151; /* gray-700 */
+  --ifm-color-primary: var(--accent);
+  --ifm-color-primary-dark: #1d4ed8;
+  --ifm-color-primary-darker: #1e40af;
+  --ifm-color-primary-darkest: #1e3a8a;
+  --ifm-color-primary-light: #3b82f6;
+  --ifm-color-primary-lighter: #60a5fa;
+  --ifm-color-primary-lightest: #93c5fd;
+  --ifm-background-color: var(--bg);
+  --ifm-background-surface-color: var(--surface);
+  --ifm-navbar-background-color: color-mix(in srgb, var(--surface), transparent 8%);
+  --ifm-footer-background-color: var(--surface);
+  --ifm-border-color: var(--border);
+  --ifm-heading-color: var(--text);
+  --ifm-font-color-base: var(--text);
+  --ifm-menu-color: var(--text-muted);
+  --ifm-link-color: var(--accent);
+  --ifm-link-hover-color: #1d4ed8;
+  --ifm-font-family-base: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --ifm-font-family-monospace: 'JetBrains Mono', 'SFMono-Regular', Menlo, monospace;
+  --ifm-code-background: var(--surface-2);
+  --ifm-code-border-radius: 6px;
 }
 
-/* ------------------------------------------------------------
-   2. DARK MODE OVERRIDES (The "Black/Dark" Requirement)
------------------------------------------------------------- */
 [data-theme='dark'] {
-  /* Re-map brand colors if needed, usually blue still works */
-  --ifm-color-primary: #3b82f6; /* Lighter blue for dark mode contrast */
-  
-  /* Dark Mode Backgrounds */
-  --ifm-background-color: #0f172a; /* slate-900 (Deep Black/Blue) */
-  --ifm-background-surface-color: #1e293b; /* slate-800 */
-  --ifm-navbar-background-color: #0f172a;
-  
-  /* Typography */
-  --ifm-heading-color: #f3f4f6; /* gray-100 */
-  --ifm-font-color-base: #e5e7eb; /* gray-200 */
-  
-  /* Borders */
-  --ifm-border-color: #334155; /* slate-700 */
+  color-scheme: dark;
+  --bg: #0b0f14;
+  --bg-soft: #0f172a;
+  --surface: #111827;
+  --surface-2: #0f172a;
+  --surface-3: #0b1220;
+  --border: #1f2937;
+  --border-strong: #273449;
+  --text: #e5e7eb;
+  --text-muted: #9aa4b2;
+  --text-subtle: #6b7280;
+  --accent: #60a5fa;
+  --accent-2: #93c5fd;
+  --accent-soft: rgba(37, 99, 235, 0.2);
+  --danger: #f87171;
+  --shadow-1: 0 6px 24px rgba(0, 0, 0, 0.4);
+
+  --ifm-color-primary: var(--accent);
+  --ifm-background-color: var(--bg);
+  --ifm-background-surface-color: var(--surface);
+  --ifm-navbar-background-color: color-mix(in srgb, var(--surface), transparent 8%);
+  --ifm-footer-background-color: var(--surface);
+  --ifm-border-color: var(--border);
+  --ifm-heading-color: var(--text);
+  --ifm-font-color-base: var(--text);
+  --ifm-menu-color: var(--text-muted);
+  --ifm-link-color: var(--accent-2);
+  --ifm-link-hover-color: #bfdbfe;
+  --ifm-code-background: var(--surface-2);
 }
 
-/* ------------------------------------------------------------
-3. COMPONENT OVERRIDES
------------------------------------------------------------- */
+html,
+body {
+  background: var(--bg);
+  color: var(--text);
+}
 
-/* Navbar: Clean border, no shadow in light mode */
+.navbar {
+  height: 3.5rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  box-shadow: none;
+  padding: 0 1.5rem;
+}
 
-/* Links in Navbar */
-.header-link {
+.navbar__inner {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.navbar__logo img,
+.navbar__logo svg {
+  height: 26px;
+  width: auto;
+}
+
+.navbar__title {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  color: var(--text);
+}
+
+.navbar__title::after {
+  content: 'Docs';
+  margin-left: 7px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  padding: 2px 5px;
+  border-radius: 4px;
+  vertical-align: middle;
+}
+
+.header-link,
+.navbar__link {
+  font-size: 13px;
   font-weight: 500;
-  font-size: 0.95rem;
+  color: var(--text-muted);
+  border-radius: 6px;
+  padding: 6px 10px;
 }
 
-/* Footer: Clean Top Border */
-.footer {
-  background-color: var(--ifm-background-surface-color);
-  border-top: 1px solid var(--ifm-border-color);
+.navbar__link:hover,
+.header-link:hover {
+  color: var(--text);
+  background: var(--surface-2);
 }
 
-/* Sidebar: Clean up the active state */
+.header-cta.navbar__link {
+  background: var(--text);
+  color: var(--bg);
+  font-size: 12.5px;
+  font-weight: 600;
+  border-radius: 6px;
+  padding: 6px 12px;
+}
+
+.header-cta.navbar__link:hover {
+  background: color-mix(in srgb, var(--text), #000 12%);
+  color: var(--bg);
+}
+
+.navbar [class*='toggleButton'] {
+  color: var(--text-muted);
+  border-radius: 7px;
+}
+
+.navbar [class*='toggleButton']:hover {
+  color: var(--text);
+  background: var(--surface-2);
+}
+
+.theme-doc-sidebar-container {
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+}
+
+.menu__list-item-collapsible:hover {
+  background: transparent;
+}
+
+.menu__link {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  border-radius: 8px;
+}
+
+.menu__link:hover {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
 .menu__link--active {
-  background-color: rgba(37, 99, 235, 0.1); /* 10% Blue opacity */
-  color: var(--ifm-color-primary);
+  background: var(--accent-soft);
+  color: var(--accent);
   font-weight: 600;
 }
 
-/* 1. Container Styles */
-.navbar {
-  height: 3.5rem; /* h-14 */
-  background-color: rgba(255, 255, 255, 0.5) !important; /* bg-white/50 */
-  backdrop-filter: blur(24px); /* backdrop-blur-xl */
-  -webkit-backdrop-filter: blur(24px); /* Safari support */
-  border-bottom: 1px solid #e5e7eb !important; /* border-gray-200 */
-  box-shadow: none !important; /* Remove default shadow */
-  padding: 0 1.5rem; /* Match px-6 */
+.table-of-contents {
+  border-left: 1px solid var(--border);
 }
 
-/* 2. Link Styles (Text) */
-.navbar__item,
-.navbar__link {
-  font-family: system-ui, -apple-system, sans-serif; /* Standard font stack */
-  font-size: 0.875rem; /* text-sm */
-  font-weight: 500; /* font-medium */
-  color: #374151; /* text-gray-700 */
+.table-of-contents__link {
+  color: var(--text-subtle);
 }
 
-/* 3. Hover Effects */
-.navbar__link:hover,
-.navbar__item:hover {
-  color: #111827; /* text-gray-900 */
-  background-color: transparent; /* Clean hover */
+.table-of-contents__link:hover,
+.table-of-contents__link--active {
+  color: var(--accent);
 }
 
-/* 4. Logo Styling */
-.navbar__logo {
-  height: 1.75rem; /* h-7 to match h-8 approx */
-  margin-right: 0.5rem;
-}
-
-/* 5. Dark Mode Toggle Styling (Make it subtle) */
-.clean-btn.toggleButton_gllP {
-  margin-left: 1rem;
-}
-
-/* ------------------------------------------------------------
-DARK MODE OVERRIDES
------------------------------------------------------------- */
-[data-theme='dark'] .navbar {
-  background-color: rgba(15, 23, 42, 0.7) !important; /* Slate-900 with opacity */
-  border-bottom: 1px solid #1e293b !important; /* Slate-800 */
-  color: #e5e7eb;
-}
-
-[data-theme='dark'] .navbar__link {
-  color: #9ca3af; /* Gray-400 */
-}
-
-[data-theme='dark'] .navbar__link:hover {
-  color: #f3f4f6; /* White */
-}
-
-/* ------------------------------------------------------------
-5. DOCS TYPOGRAPHY HIERARCHY
------------------------------------------------------------- */
 .theme-doc-markdown h1 {
-  font-size: 2.25rem;
+  font-size: 2.15rem;
   line-height: 1.2;
+  letter-spacing: -0.02em;
 }
 
 .theme-doc-markdown h2 {
-  font-size: 1.875rem;
+  font-size: 1.65rem;
   line-height: 1.25;
+  letter-spacing: -0.015em;
 }
 
 .theme-doc-markdown h3 {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   line-height: 1.3;
 }
 
-.theme-doc-markdown h4 {
-  font-size: 1.125rem;
-  line-height: 1.45;
+.theme-doc-markdown p,
+.theme-doc-markdown li {
+  color: var(--text-muted);
+}
+
+.theme-doc-markdown strong {
+  color: var(--text);
+}
+
+.theme-doc-markdown a {
+  font-weight: 500;
+}
+
+code {
+  border: 1px solid var(--border);
+  font-size: 0.85em;
+}
+
+pre code {
+  border: none;
+}
+
+.pagination-nav__link {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow: var(--shadow-1);
+}
+
+.pagination-nav__label {
+  color: var(--text);
+}
+
+.pagination-nav__sublabel {
+  color: var(--text-subtle);
+}
+
+.alert {
+  border: 1px solid var(--border);
+  box-shadow: none;
+}
+
+.footer {
+  border-top: 1px solid var(--border);
+}
+
+.footer__title {
+  color: var(--text);
+}
+
+.footer__link-item {
+  color: var(--text-muted);
+}
+
+.footer__link-item:hover {
+  color: var(--text);
+}
+
+[data-theme='dark'] .navbar {
+  border-bottom-color: var(--border);
+}
+
+[data-theme='dark'] .theme-doc-sidebar-container {
+  border-right-color: var(--border);
+}
+
+[data-theme='dark'] .table-of-contents {
+  border-left-color: var(--border);
+}
+
+@media (max-width: 996px) {
+  .navbar {
+    padding: 0 1rem;
+  }
+  .navbar__title {
+    font-size: 14px;
+  }
+  .header-cta.navbar__link {
+    width: 100%;
+    justify-content: center;
+  }
 }
