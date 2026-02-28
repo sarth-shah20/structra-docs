@@ -4,13 +4,14 @@ title: "F-01 Protocol Fit"
 
 # F-01 Protocol Fit
 
-What This Rule Checks
+## What This Rule Checks
 
 Structra checks that the API protocol you've chosen actually matches the way your system communicates.
 Picking the wrong protocol is one of the most common architectural mistakes — it quietly causes performance
 problems, unnecessary complexity, or poor developer experience down the line.
 
-The Four Protocols and When to Use Each
+## The Four Protocols and When to Use Each
+
 REST (Representational State Transfer) REST is the right choice for the vast majority of public-facing APIs
 that perform standard create, read, update, and delete operations. If a client is requesting a user profile,
 submitting a form, or paginating through a list of products, REST fits naturally. It's stateless, cacheable, and
@@ -41,19 +42,15 @@ client — not just respond to requests.
 Use WebSocket when: You're building real-time features like live chat, collaborative document editing, live
 sports scores, or a trading dashboard that updates prices in real time.
 
-Common Violations
+## Common Violations
 
-      Using REST for a live chat system where the server needs to push messages to clients — REST is
-      request/response only.
-      Using WebSocket for a simple user profile API — you don't need a persistent connection for infrequent
-      reads.
-      Using REST between two internal microservices that call each other hundreds of times per second —
-      gRPC is far more efficient here.
-      Using GraphQL for a simple API with only one or two clients and stable data requirements — this adds
-      unnecessary complexity.
+- Using REST for a live chat system where the server needs to push messages to clients — REST is request/response only.
+- Using WebSocket for a simple user profile API — you don't need a persistent connection for infrequent reads.
+- Using REST between two internal microservices that call each other hundreds of times per second — gRPC is far more efficient here.
+- Using GraphQL for a simple API with only one or two clients and stable data requirements — this adds unnecessary complexity.
 
 
-Why It Matters
+## Why It Matters
 
 A protocol mismatch doesn't always cause an immediate failure. It causes slow degradation: higher latency than
 expected, more connections than necessary, or a brittle integration that breaks under load. Catching this early

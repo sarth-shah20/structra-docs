@@ -4,13 +4,15 @@ title: "P-08 Consistency Model"
 
 # P-08 Consistency Model
 
-What This Rule Checks
+## What This Rule Checks
+
 Structra checks that your design explicitly states the consistency model for each data store and verifies that the
 chosen model matches the business requirements of the operations using that store. An unstated or mismatched
 consistency model is a correctness risk — it means the system may silently serve stale or incorrect data in
 scenarios where that is unacceptable.
 
-The Main Consistency Models
+## The Main Consistency Models
+
 Strong Consistency Every read reflects the most recent write. Once a write is acknowledged, any subsequent
 read from any node will see that write. This is the strongest guarantee and the most expensive to achieve in a
 distributed system — it requires coordination between nodes before acknowledging a write.
@@ -36,7 +38,8 @@ latency because writes don't need to coordinate across nodes.
 Use when: Social media likes, view counts, DNS records, product descriptions — scenarios where a few
 seconds of staleness is acceptable in exchange for higher performance.
 
-Why Matching the Model Matters
+## Why Matching the Model Matters
+
 A financial service using eventual consistency might allow a user's balance to show as positive on one replica
 while being negative on another, enabling overdrafts. A social media feed using strong consistency pays
 unnecessary coordination cost for data that doesn't require it, hurting performance. The match between model

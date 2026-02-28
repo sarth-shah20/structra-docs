@@ -4,22 +4,24 @@ title: "P-10 Transaction Strategy"
 
 # P-10 Transaction Strategy
 
-What This Rule Checks
+## What This Rule Checks
+
 Structra checks that any operation that writes to more than one data store uses a recognized coordination
 mechanism. Writing to two databases or two services in the same operation without coordination creates a
 window where one write succeeds and the other fails, leaving your data in an inconsistent state.
 
-The Problem
-Imagine an order placement flow that:
+## The Problem
 
-  1. Deducts inventory from the Inventory Service (writes to the Inventory DB).
-  2. Creates an order in the Order Service (writes to the Order DB).
+## Imagine an order placement flow that:
+
+1. Deducts inventory from the Inventory Service (writes to the Inventory DB).
+2. Creates an order in the Order Service (writes to the Order DB).
 
 
 If step 1 succeeds and step 2 fails — due to a crash, a timeout, or any other reason — you now have:
 
-      Inventory reduced by 1.
-      No order created.
+- Inventory reduced by 1.
+- No order created.
 
 
 The item has been "sold" but the order doesn't exist. The two databases are inconsistent.
@@ -34,8 +36,8 @@ Use when: You need strict atomicity and can tolerate the latency, typically in t
 Saga Pattern A sequence of local transactions, each of which publishes an event or message that triggers the
 next step. If any step fails, compensating transactions are executed to undo the previous steps.
 
-      Choreography-based: Each service subscribes to events and decides what to do. Decentralized.
-      Orchestration-based: A central orchestrator directs each service in the saga.
+- Choreography-based: Each service subscribes to events and decides what to do. Decentralized.
+- Orchestration-based: A central orchestrator directs each service in the saga.
 
 
 Use when: You need distributed transactions across microservices and can tolerate eventual consistency.

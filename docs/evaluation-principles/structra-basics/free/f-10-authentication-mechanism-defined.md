@@ -4,18 +4,19 @@ title: "F-10 Auth Method"
 
 # F-10 Auth Method
 
-What This Rule Checks
+## What This Rule Checks
 
 Structra checks that every system with a public-facing API explicitly states how callers prove their identity. An
 API without a declared authentication mechanism is effectively open to the public — anyone can call it.
 
-Authentication vs Authorization
+## Authentication vs Authorization
+
 Authentication answers: "Who are you?" It verifies the caller's identity. Authorization answers: "What are you
 allowed to do?" It controls access based on identity.
 
 This rule covers authentication. Authorization is covered separately (Rule P-27).
 
-Accepted Authentication Mechanisms
+## Accepted Authentication Mechanisms
 
 JWT — JSON Web Tokens The user logs in with a username and password. The server validates the
 credentials and issues a signed JWT. The JWT contains the user's ID and roles in its payload and is
@@ -48,7 +49,7 @@ network level.
 Best for: Service-to-service communication inside a secure infrastructure where you need cryptographic proof
 of identity (zero-trust environments).
 
-Why This Rule Exists
+## Why This Rule Exists
 
 It sounds obvious — of course your API needs authentication. But designs submitted without explicitly stating
 the mechanism often have implicit assumptions that fall apart under scrutiny: "the API is internal" (but not
