@@ -95,11 +95,6 @@ body {
 .navbar__inner {
   max-width: 1400px;
   margin: 0 auto;
-  overflow: visible;
-}
-
-.navbar__items {
-  overflow: visible;
 }
 
 .navbar__logo img,
@@ -145,56 +140,6 @@ body {
   background: var(--surface-2);
 }
 
-.navbar-search {
-  position: relative;
-  width: 260px;
-}
-
-#navbar-search-input {
-  width: 100%;
-  height: 34px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: var(--surface);
-  color: var(--text);
-  padding: 0 10px;
-  font-size: 13px;
-}
-
-#navbar-search-input:focus {
-  outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent), transparent 82%);
-}
-
-.navbar-search-suggestions {
-  display: none;
-  position: absolute;
-  top: 38px;
-  left: 0;
-  width: 100%;
-  max-height: 300px;
-  overflow-y: auto;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  box-shadow: var(--shadow-1);
-  z-index: 1000;
-}
-
-.navbar-search-suggestion {
-  display: block;
-  padding: 8px 10px;
-  font-size: 13px;
-  color: var(--text-muted);
-  text-decoration: none;
-}
-
-.navbar-search-suggestion:hover {
-  background: var(--surface-2);
-  color: var(--text);
-}
-
 .header-cta.navbar__link {
   background: var(--text);
   color: var(--bg);
@@ -222,6 +167,27 @@ body {
 .theme-doc-sidebar-container {
   background: var(--surface);
   border-right: 1px solid var(--border);
+}
+
+.sidebar-search-wrap {
+  padding: 0.5rem 0.75rem 0.75rem;
+}
+
+.sidebar-search-input {
+  width: 100%;
+  height: 34px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  padding: 0 10px;
+  font-size: 13px;
+}
+
+.sidebar-search-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent), transparent 82%);
 }
 
 .menu__list-item-collapsible:hover {
@@ -348,11 +314,6 @@ pre code {
 @media (max-width: 996px) {
   .navbar {
     padding: 0 1rem;
-  }
-
-  .navbar-search {
-    width: 100%;
-    margin: 0.5rem 0;
   }
 
   .navbar__title {

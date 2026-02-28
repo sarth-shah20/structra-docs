@@ -42,7 +42,7 @@ const config = {
   },
   scripts: [
     {
-      src: '/js/navbar-search.js',
+      src: '/js/sidebar-search.js',
       defer: true,
     },
   ],
@@ -85,11 +85,6 @@ themeConfig:
           target: '_self',
         },
         items: [
-          {
-            type: 'html',
-            value: '<div class="navbar-search" id="navbar-search"><input id="navbar-search-input" type="search" placeholder="Search docs, rules..." aria-label="Search documentation" autocomplete="off" /><div id="navbar-search-suggestions" class="navbar-search-suggestions"></div></div>',
-            position: 'right',
-          },
           {
             href: 'https://structra.cloud/app/workspaces',
             label: 'Workspaces',
