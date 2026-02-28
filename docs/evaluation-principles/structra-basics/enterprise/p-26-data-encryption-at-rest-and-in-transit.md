@@ -37,10 +37,8 @@ rest. All major cloud providers offer transparent encryption at rest for their s
 ## Levels of encryption at rest:
 
 - Full-disk encryption: The entire storage volume is encrypted. All data on the disk is protected even if the disk is physically removed.
-- Database-level encryption: The database encrypts data before writing to disk (Transparent Data
-- Encryption / TDE in SQL Server, Oracle; supported in PostgreSQL via pgcrypto).
-- Application-level encryption: The application encrypts specific sensitive fields (credit card numbers,
-- SSNs) before writing to the database. The most granular; even a database administrator with direct access cannot read the raw sensitive data.
+- Database-level encryption: The database encrypts data before writing to disk (Transparent Data Encryption / TDE in SQL Server, Oracle; supported in PostgreSQL via pgcrypto).
+- Application-level encryption: The application encrypts specific sensitive fields (credit card numbers, SSNs) before writing to the database. The most granular; even a database administrator with direct access cannot read the raw sensitive data.
 What "Sensitive Data" Includes
 
 - Personally Identifiable Information (PII): names, addresses, email addresses, phone numbers.

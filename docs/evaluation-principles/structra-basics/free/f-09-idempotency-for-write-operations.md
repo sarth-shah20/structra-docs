@@ -32,13 +32,11 @@ services have transient failures. Retry logic is built into almost every HTTP cl
 The client generates a unique Idempotency-Key (a UUID or similar) and includes it in the request header. The
 server uses this key to track whether it has already processed this request.
 
-1. First request arrives with Idempotency-Key: abc-123 . The server processes the payment, records the result
+1. First request arrives with Idempotency-Key: abc-123 . The server processes the payment, records the result in a database keyed by abc-123 .
 
-- in a database keyed by abc-123 .
 2. The response is lost. The client retries with the same Idempotency-Key: abc-123 .
-3. The server sees this key, looks it up, finds the original result, and returns it — without processing the
+3. The server sees this key, looks it up, finds the original result, and returns it — without processing the payment again.
 
-- payment again.
 
 
 The customer is charged exactly once, regardless of how many times the request is sent.

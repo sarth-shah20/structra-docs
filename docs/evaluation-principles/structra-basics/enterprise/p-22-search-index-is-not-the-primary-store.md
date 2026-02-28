@@ -36,9 +36,8 @@ aggregations. But they are not built to be authoritative data stores:
 
 
 1. All writes go to the primary store (PostgreSQL, MongoDB, etc.).
-2. Changes propagate to the search index asynchronously via CDC (Debezium, custom change feed listener)
+2. Changes propagate to the search index asynchronously via CDC (Debezium, custom change feed listener) or event stream.
 
-- or event stream.
 3. The search index serves search queries. The primary database serves queries requiring authoritative data.
 
 

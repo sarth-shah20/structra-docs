@@ -34,8 +34,7 @@ restart or crash makes your entire API unreachable.
 ## What a Good Design Shows
 
 - Load balancers either in an active-passive pair or managed by the cloud provider with built-in HA.
-- A primary database with at least one replica and automatic failover (e.g., using Patroni, AWS RDS Multi-
-- AZ, or similar).
+- A primary database with at least one replica and automatic failover (e.g., using Patroni, AWS RDS Multi- AZ, or similar).
 - Message brokers running as a cluster (e.g., Kafka with multiple brokers, RabbitMQ with mirrored queues).
 - Explicit notation that critical components are redundant.
 

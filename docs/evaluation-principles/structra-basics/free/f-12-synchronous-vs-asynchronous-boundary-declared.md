@@ -48,9 +48,8 @@ PDF generation is unnecessary latency.
 
 ## The standard pattern for asynchronous work:
 
-1. API receives the request, validates it, persists the data, and publishes a message to a queue (e.g., "send
+1. API receives the request, validates it, persists the data, and publishes a message to a queue (e.g., "send welcome email to user 4521").
 
-- welcome email to user 4521").
 2. API responds immediately: 201 Created .
 3. A background worker picks up the message from the queue and sends the email.
 

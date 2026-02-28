@@ -19,9 +19,8 @@ Here's why duplicates happen:
 1. The broker delivers message M to Consumer A.
 2. Consumer A processes M and starts to send an acknowledgment.
 3. Consumer A crashes (or the network drops) before the acknowledgment reaches the broker.
-4. The broker sees no acknowledgment and re-delivers M, either to Consumer A after it restarts, or to
+4. The broker sees no acknowledgment and re-delivers M, either to Consumer A after it restarts, or to Consumer B.
 
-- Consumer B.
 5. M is now processed twice.
 This is not a bug in the broker — it's the correct behavior for a system that prioritizes not losing messages over
 not duplicating them.

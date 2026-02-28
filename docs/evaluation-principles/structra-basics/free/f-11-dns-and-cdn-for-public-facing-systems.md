@@ -38,9 +38,8 @@ served by nearby edge nodes.
 DNS (Domain Name System) is what translates yourapp.com into an IP address. In a CDN setup, DNS routes
 users to the nearest CDN edge node. Your architecture diagram should show:
 1. User's browser makes a DNS request for yourapp.com .
-2. DNS (often managed by the CDN provider or a service like Route 53) returns the IP of the nearest edge
+2. DNS (often managed by the CDN provider or a service like Route 53) returns the IP of the nearest edge node.
 
-- node.
 3. The edge node serves cached content or proxies the request to your origin.
 
 

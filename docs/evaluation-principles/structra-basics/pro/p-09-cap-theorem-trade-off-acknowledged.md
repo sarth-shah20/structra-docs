@@ -45,7 +45,6 @@ product catalogs, shopping carts, DNS — scenarios where availability matters m
 ## For each distributed data store:
 
 1. Is it CP or AP?
-2. During a network partition: does the system return stale data (AP), or reject requests until consistency is
+2. During a network partition: does the system return stale data (AP), or reject requests until consistency is restored (CP)?
 
-- restored (CP)?
 3. Is this behavior consistent with the business requirements of the operations using this store?
