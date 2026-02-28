@@ -1,7 +1,7 @@
 ---
-title: "Graceful Degradation"
+title: "P-18 Graceful Degradation"
 ---
 
-# P-18: Graceful Degradation
+# P-18 Graceful Degradation
 
 Content coming soon.

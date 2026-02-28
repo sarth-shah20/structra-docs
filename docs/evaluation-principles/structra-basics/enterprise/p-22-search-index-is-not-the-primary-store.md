@@ -1,7 +1,7 @@
 ---
-title: "Search Indexing"
+title: "P-22 Search Indexing"
 ---
 
-# P-22: Search Indexing
+# P-22 Search Indexing
 
 Content coming soon.

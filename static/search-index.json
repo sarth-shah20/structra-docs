@@ -1,0 +1,297 @@
+[
+  {
+    "title": "Account and Identity",
+    "url": "/account-and-identity",
+    "text": "Account and Identity Structra supports identity flows across password, OTP, and OAuth signup/login. Username Rules Usernames are globally unique. Allowed characters: letters, numbers, , . is a display prefix only and is not stored in the database. Username length limit: 50 characters. Signup Flows Password signup: users set username directly. OTP signup: username is provided during verification. OAuth signup: if user is new, Structra auto generates a unique username. Login Flows Users can sign in with either email or username. If identifier contains , login resolves as email. Otherwise, login resolves as username. Profile Editing Users can edit profile metadata including username. Username updates are checked for global uniqueness before save. If taken, a validation error is returned and save is blocked. Search and Privacy User search runs through trigram similarity for fast partial matching. Search excludes the current authenticated user. Public user profile views should not expose private email addresses."
+  },
+  {
+    "title": "Evaluation Principles",
+    "url": "/evaluation-principles",
+    "text": "Evaluation Principles The Structra evaluation framework is organized into principle documents that progressively increase architectural rigor. How Principles Are Applied Rules are executed by the evaluation engine based on workspace tier. Every rule maps to a specific architecture concern (availability, consistency, cost, scale, resilience). Violations are designed to be actionable and remediation focused. Evidence Expectations Architecture diagram or component inventory Datastore and message flow definitions Throughput and growth assumptions Failure mode and recovery strategy Security and observability controls Tier Progression Free : Fundamental production hygiene checks Pro : Distributed systems and scale pattern checks Enterprise : Strict large scale architecture constraints Everyone can read all docs. Enforcement by tier happens in the evaluation engine."
+  },
+  {
+    "title": "Production System Design Principles",
+    "url": "/evaluation-principles/production-system-principles",
+    "text": "Production System Design Principles These principles are for high stakes production architecture reviews. They focus on failure containment, correctness under concurrency, and operational survivability at scale. PRD 01: End to End Deadline Propagation Every inbound request must carry a deadline budget propagated across all downstream calls. Local service timeouts without inherited deadlines create request amplification and tail latency collapse. PRD 02: Timeout Hierarchy Must Be Monotonic Client timeout must be greater than gateway timeout, which must be greater than service timeout, which must be greater than datastore timeout. Non monotonic timeout trees cause retry storms and duplicate work. PRD 03: Backpressure Is Mandatory on Every Queue Boundary Producers must respond to consumer lag using bounded queues, adaptive throttling, and explicit shed policies. Unbounded buffers hide overload until catastrophic memory or latency failure. PRD 04: Load Shedding Before Saturation Services must reject low priority traffic before CPU, connection pools, or thread pools saturate. Controlled rejection preserves core paths and prevents full cluster brownouts. PRD 05: Bulkheads for Dependency Isolation Each critical dependency requires isolated worker pools, connection pools, and circuit breaker state. Shared pools allow one failing dependency to collapse unrelated flows. PRD 06: Control Plane and Data Plane Separation Configuration, orchestration, and policy updates must be isolated from request serving execution paths. Control plane instability must never halt data plane serving. PRD 07: Cell Based Isolation for Tenant Blast Radius Large multi tenant systems must partition tenants into cells with isolated compute and data boundaries. A single noisy or broken tenant must not degrade global SLO. PRD 08: Hot Partition Detection and Shard Rebalancing Partition strategies must include continuous skew detection and live rebalancing mechanisms. Static keys without skew management eventually create irreversible hot shards. PRD 09: Schema Evolution Requires Compatibility Guarantees Message and API schema changes must maintain explicit backward/forward compatibility windows with contract tests. Non versioned schema changes are distributed outage vectors. PRD 10: Online Data Migration Without Write Freeze Large migrations require phased rollout: dual read or shadow read validation, chunked backfills, and cutover guarded by parity metrics. Big bang migration windows are operationally unsafe. PRD 11: Outbox + Idempotent Consumer for Cross System Consistency State change events must be emitted through transactional outbox, and downstream consumers must dedupe by idempotency key. Dual write without outbox is eventual data divergence. PRD 12: Exactly Once Delivery Must Not Be Assumed Distributed messaging must be designed for at least once semantics with deterministic deduplication. Claims of exactly once correctness without end to end proof are invalid. PRD 13: Multi Region Strategy Includes Conflict Semantics Multi region write paths must define conflict resolution policy (last writer wins, CRDT, domain specific merge, or hard ownership). Replication without conflict semantics is correctness debt. PRD 14: Dependency Budgeting and Criticality Tiers Every external dependency must have an assigned criticality tier with explicit fallback mode and allowed error budget consumption. Unclassified dependencies make incident response non deterministic. PRD 15: SLO Error Budget Governs Release Velocity Release gates must be tied to error budget burn, not calendar cadence. Shipping while budget is exhausted converts reliability debt into recurring incidents. PRD 16: Alerting Must Map to User Visible Impact Alerts should be derived from golden signals and SLO burn rates, with runbook links and owner routing attached. Metric threshold only alerting creates noisy, low action pages. PRD 17: Capacity Model Includes Saturation Forecasting Capacity planning must model "
+  },
+  {
+    "title": "Enterprise",
+    "url": "/evaluation-principles/structra-basics/enterprise",
+    "text": "Enterprise Includes all Free and Pro rules, plus the additional rules below."
+  },
+  {
+    "title": "P-21 CQRS Separation",
+    "url": "/evaluation-principles/structra-basics/enterprise/p-21-cqrs-command-and-query-models-are-separate",
+    "text": "P 21 CQRS Separation Content coming soon."
+  },
+  {
+    "title": "P-22 Search Indexing",
+    "url": "/evaluation-principles/structra-basics/enterprise/p-22-search-index-is-not-the-primary-store",
+    "text": "P 22 Search Indexing Content coming soon."
+  },
+  {
+    "title": "P-23 Time-Series Storage",
+    "url": "/evaluation-principles/structra-basics/enterprise/p-23-time-series-data-uses-appropriate-storage",
+    "text": "P 23 Time Series Storage Content coming soon."
+  },
+  {
+    "title": "P-24 Object Storage",
+    "url": "/evaluation-principles/structra-basics/enterprise/p-24-object-storage-for-binary-and-large-assets",
+    "text": "P 24 Object Storage Content coming soon."
+  },
+  {
+    "title": "P-25 Secret Management",
+    "url": "/evaluation-principles/structra-basics/enterprise/p-25-secrets-not-stored-in-application-config",
+    "text": "P 25 Secret Management Content coming soon."
+  },
+  {
+    "title": "P-26 Data Encryption",
+    "url": "/evaluation-principles/structra-basics/enterprise/p-26-data-encryption-at-rest-and-in-transit",
+    "text": "P 26 Data Encryption Content coming soon."
+  },
+  {
+    "title": "P-27 Auth Separation",
+    "url": "/evaluation-principles/structra-basics/enterprise/p-27-authorization-layer-distinct-from-authentication",
+    "text": "P 27 Auth Separation Content coming soon."
+  },
+  {
+    "title": "P-28 PII Auditing",
+    "url": "/evaluation-principles/structra-basics/enterprise/p-28-pii-data-access-is-audited",
+    "text": "P 28 PII Auditing Content coming soon."
+  },
+  {
+    "title": "P-29 Full Observability",
+    "url": "/evaluation-principles/structra-basics/enterprise/p-29-three-pillars-of-observability-present",
+    "text": "P 29 Full Observability Content coming soon."
+  },
+  {
+    "title": "P-30 SLO Alerting",
+    "url": "/evaluation-principles/structra-basics/enterprise/p-30-alerting-tied-to-slos-not-just-thresholds",
+    "text": "P 30 SLO Alerting Content coming soon."
+  },
+  {
+    "title": "F-01 Protocol Fit",
+    "url": "/evaluation-principles/structra-basics/free/f-01-api-protocol-fit",
+    "text": "F 01 Protocol Fit Content coming soon."
+  },
+  {
+    "title": "F-02 Failure Points",
+    "url": "/evaluation-principles/structra-basics/free/f-02-single-point-of-failure-identification",
+    "text": "F 02 Failure Points Content coming soon."
+  },
+  {
+    "title": "F-03 Stateless Services",
+    "url": "/evaluation-principles/structra-basics/free/f-03-stateless-service-layer",
+    "text": "F 03 Stateless Services Content coming soon."
+  },
+  {
+    "title": "F-04 DB Choice",
+    "url": "/evaluation-principles/structra-basics/free/f-04-database-selection-justification",
+    "text": "F 04 DB Choice Content coming soon."
+  },
+  {
+    "title": "F-05 Cache Layer",
+    "url": "/evaluation-principles/structra-basics/free/f-05-caching-layer-presence",
+    "text": "F 05 Cache Layer Content coming soon."
+  },
+  {
+    "title": "F-06 Eviction Policy",
+    "url": "/evaluation-principles/structra-basics/free/f-06-cache-eviction-policy-declared",
+    "text": "F 06 Eviction Policy Content coming soon."
+  },
+  {
+    "title": "F-07 Load Balancing",
+    "url": "/evaluation-principles/structra-basics/free/f-07-load-balancer-placement",
+    "text": "F 07 Load Balancing Content coming soon."
+  },
+  {
+    "title": "F-08 Status Codes",
+    "url": "/evaluation-principles/structra-basics/free/f-08-http-status-code-correctness",
+    "text": "F 08 Status Codes Content coming soon."
+  },
+  {
+    "title": "F-09 Write Idempotency",
+    "url": "/evaluation-principles/structra-basics/free/f-09-idempotency-for-write-operations",
+    "text": "F 09 Write Idempotency Content coming soon."
+  },
+  {
+    "title": "F-10 Auth Method",
+    "url": "/evaluation-principles/structra-basics/free/f-10-authentication-mechanism-defined",
+    "text": "F 10 Auth Method Content coming soon."
+  },
+  {
+    "title": "F-11 DNS CDN",
+    "url": "/evaluation-principles/structra-basics/free/f-11-dns-and-cdn-for-public-facing-systems",
+    "text": "F 11 DNS CDN Content coming soon."
+  },
+  {
+    "title": "F-12 Sync Async",
+    "url": "/evaluation-principles/structra-basics/free/f-12-synchronous-vs-asynchronous-boundary-declared",
+    "text": "F 12 Sync Async Content coming soon."
+  },
+  {
+    "title": "F-13 Data Replication",
+    "url": "/evaluation-principles/structra-basics/free/f-13-data-replication-strategy-stated",
+    "text": "F 13 Data Replication Content coming soon."
+  },
+  {
+    "title": "F-14 Architecture Style",
+    "url": "/evaluation-principles/structra-basics/free/f-14-monolith-vs-microservice-decision-justified",
+    "text": "F 14 Architecture Style Content coming soon."
+  },
+  {
+    "title": "F-15 Capacity Estimates",
+    "url": "/evaluation-principles/structra-basics/free/f-15-back-of-envelope-estimates-present",
+    "text": "F 15 Capacity Estimates Content coming soon."
+  },
+  {
+    "title": "F-16 Requirement Separation",
+    "url": "/evaluation-principles/structra-basics/free/f-16-functional-requirements-separation",
+    "text": "F 16 Requirement Separation Content coming soon."
+  },
+  {
+    "title": "F-17 Failure Handling",
+    "url": "/evaluation-principles/structra-basics/free/f-17-failure-mode-acknowledgment",
+    "text": "F 17 Failure Handling Content coming soon."
+  },
+  {
+    "title": "F-18 Storage Separation",
+    "url": "/evaluation-principles/structra-basics/free/f-18-data-storage-separation-by-access-pattern",
+    "text": "F 18 Storage Separation Content coming soon."
+  },
+  {
+    "title": "F-19 ID Strategy",
+    "url": "/evaluation-principles/structra-basics/free/f-19-unique-id-strategy-defined",
+    "text": "F 19 ID Strategy Content coming soon."
+  },
+  {
+    "title": "F-20 Dependency Boundaries",
+    "url": "/evaluation-principles/structra-basics/free/f-20-external-dependency-boundaries-drawn",
+    "text": "F 20 Dependency Boundaries Content coming soon."
+  },
+  {
+    "title": "Free",
+    "url": "/evaluation-principles/structra-basics/free",
+    "text": "Free Applies to all evaluations."
+  },
+  {
+    "title": "Structra Basics",
+    "url": "/evaluation-principles/structra-basics",
+    "text": "Structra Basics System Design Evaluation Rules v1.0 for . Access and Tier Evaluation Policy Everyone can read all documentation, including all 50 rules. The evaluation machine enforces rules based on product tier. tier evaluation applies through . tier evaluation applies through and through . tier evaluation applies all rules: through and through . Total rules: 50 ( + ). Free Foundational architecture checks. See . Pro Advanced scalability, distributed systems, and reliability checks. See . Enterprise Deep data architecture, security/compliance, and observability checks. See ."
+  },
+  {
+    "title": "Pro",
+    "url": "/evaluation-principles/structra-basics/pro",
+    "text": "Pro Applies for paid Pro and Enterprise evaluations."
+  },
+  {
+    "title": "P-01 Horizontal Scaling",
+    "url": "/evaluation-principles/structra-basics/pro/p-01-horizontal-scaling-path-defined",
+    "text": "P 01 Horizontal Scaling Content coming soon."
+  },
+  {
+    "title": "P-02 Sharding Strategy",
+    "url": "/evaluation-principles/structra-basics/pro/p-02-database-sharding-strategy-valid",
+    "text": "P 02 Sharding Strategy Content coming soon."
+  },
+  {
+    "title": "P-03 Traffic Ratio",
+    "url": "/evaluation-principles/structra-basics/pro/p-03-read-write-ratio-influences-architecture",
+    "text": "P 03 Traffic Ratio Content coming soon."
+  },
+  {
+    "title": "P-04 Rate Limiting",
+    "url": "/evaluation-principles/structra-basics/pro/p-04-rate-limiting-strategy-specified",
+    "text": "P 04 Rate Limiting Content coming soon."
+  },
+  {
+    "title": "P-05 Latency Budget",
+    "url": "/evaluation-principles/structra-basics/pro/p-05-latency-budget-allocated",
+    "text": "P 05 Latency Budget Content coming soon."
+  },
+  {
+    "title": "P-06 DB Pooling",
+    "url": "/evaluation-principles/structra-basics/pro/p-06-connection-pooling-for-database-connections",
+    "text": "P 06 DB Pooling Content coming soon."
+  },
+  {
+    "title": "P-07 Async Processing",
+    "url": "/evaluation-principles/structra-basics/pro/p-07-async-processing-for-non-critical-path",
+    "text": "P 07 Async Processing Content coming soon."
+  },
+  {
+    "title": "P-08 Consistency Model",
+    "url": "/evaluation-principles/structra-basics/pro/p-08-consistency-model-declared",
+    "text": "P 08 Consistency Model Content coming soon."
+  },
+  {
+    "title": "P-09 CAP Tradeoff",
+    "url": "/evaluation-principles/structra-basics/pro/p-09-cap-theorem-trade-off-acknowledged",
+    "text": "P 09 CAP Tradeoff Content coming soon."
+  },
+  {
+    "title": "P-10 Transaction Strategy",
+    "url": "/evaluation-principles/structra-basics/pro/p-10-distributed-transaction-handling",
+    "text": "P 10 Transaction Strategy Content coming soon."
+  },
+  {
+    "title": "P-11 Idempotent Consumers",
+    "url": "/evaluation-principles/structra-basics/pro/p-11-idempotent-message-consumer",
+    "text": "P 11 Idempotent Consumers Content coming soon."
+  },
+  {
+    "title": "P-12 Dead Letter Queue",
+    "url": "/evaluation-principles/structra-basics/pro/p-12-dead-letter-queue-for-message-failures",
+    "text": "P 12 Dead Letter Queue Content coming soon."
+  },
+  {
+    "title": "P-13 Leader Consensus",
+    "url": "/evaluation-principles/structra-basics/pro/p-13-consensus-mechanism-for-leader-election",
+    "text": "P 13 Leader Consensus Content coming soon."
+  },
+  {
+    "title": "P-14 Query Partitioning",
+    "url": "/evaluation-principles/structra-basics/pro/p-14-data-partitioning-does-not-break-query-patterns",
+    "text": "P 14 Query Partitioning Content coming soon."
+  },
+  {
+    "title": "P-15 Circuit Breakers",
+    "url": "/evaluation-principles/structra-basics/pro/p-15-circuit-breaker-on-external-calls",
+    "text": "P 15 Circuit Breakers Content coming soon."
+  },
+  {
+    "title": "P-16 Retry Backoff",
+    "url": "/evaluation-principles/structra-basics/pro/p-16-retry-logic-with-exponential-backoff",
+    "text": "P 16 Retry Backoff Content coming soon."
+  },
+  {
+    "title": "P-17 SLA Alignment",
+    "url": "/evaluation-principles/structra-basics/pro/p-17-availability-sla-matched-to-architecture",
+    "text": "P 17 SLA Alignment Content coming soon."
+  },
+  {
+    "title": "P-18 Graceful Degradation",
+    "url": "/evaluation-principles/structra-basics/pro/p-18-graceful-degradation-path-exists",
+    "text": "P 18 Graceful Degradation Content coming soon."
+  },
+  {
+    "title": "P-19 Health Recovery",
+    "url": "/evaluation-principles/structra-basics/pro/p-19-health-check-and-auto-recovery-defined",
+    "text": "P 19 Health Recovery Content coming soon."
+  },
+  {
+    "title": "P-20 Event Snapshots",
+    "url": "/evaluation-principles/structra-basics/pro/p-20-event-sourcing-requires-snapshot-strategy",
+    "text": "P 20 Event Snapshots Content coming soon."
+  },
+  {
+    "title": "Getting Started",
+    "url": "/getting-started",
+    "text": "Getting Started This guide helps you run your first evaluation quickly and interpret results. 1. Prepare Your Workspace Create a workspace in Structra. Add your system context (services, databases, queues, external dependencies). Confirm your selected tier ( , , or ). 2. Define Architecture Inputs Provide clear input data before evaluating: Traffic expectations (current and projected) Read/write characteristics Availability target (SLO) Data consistency needs Known failure scenarios 3. Run Evaluation Start evaluation from your workspace. Review failed and warning checks. Open each finding to see why the rule triggered. 4. Remediate and Re run Prioritize critical reliability and data integrity findings first. Apply architecture fixes. Re run evaluation after each major design change. Common Mistakes Missing cache strategy for read heavy systems No DLQ/retry policy for async processing Undefined idempotency on critical write endpoints Missing failover strategy for single points of failure"
+  },
+  {
+    "title": "Structra Documentation",
+    "url": "/",
+    "text": "Structra Documentation Structra helps teams review software architecture quality using rule based evaluation principles. Use this documentation to understand evaluation rules, tier differences, and expected production readiness standards. Available Documentation What Structra Evaluates System reliability and failure handling Scalability planning and bottleneck prevention Data integrity and consistency boundaries Security, observability, and operational readiness Architecture fit for team size and product stage Access Model All users can read documentation. Evaluation enforcement is tier based. Higher tiers apply stricter rules and more advanced checks."
+  }
+]

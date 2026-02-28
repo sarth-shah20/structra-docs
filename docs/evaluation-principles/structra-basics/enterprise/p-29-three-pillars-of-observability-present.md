@@ -1,7 +1,7 @@
 ---
-title: "Full Observability"
+title: "P-29 Full Observability"
 ---
 
-# P-29: Full Observability
+# P-29 Full Observability
 
 Content coming soon.

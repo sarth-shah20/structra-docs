@@ -1,7 +1,7 @@
 ---
-title: "SLO Alerting"
+title: "P-30 SLO Alerting"
 ---
 
-# P-30: SLO Alerting
+# P-30 SLO Alerting
 
 Content coming soon.

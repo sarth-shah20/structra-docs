@@ -1,7 +1,7 @@
 ---
-title: "Architecture Style"
+title: "F-14 Architecture Style"
 ---
 
-# F-14: Architecture Style
+# F-14 Architecture Style
 
 Content coming soon.
