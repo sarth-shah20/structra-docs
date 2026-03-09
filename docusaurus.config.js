@@ -55,7 +55,8 @@ const config = {
       colorMode: {
         defaultMode: 'dark',
         disableSwitch: false,
-        respectPrefersColorScheme: true,
+        // Keep only explicit light/dark switching (no ambiguous system mode).
+        respectPrefersColorScheme: false,
       },
 
       // Focused, high-signal product message at the top of every page.
@@ -104,8 +105,24 @@ const config = {
             title: 'Platform',
             items: [
               {label: 'Workspaces', href: 'https://structra.cloud/app/workspaces'},
+              {label: 'Open App', href: 'https://structra.cloud/app'},
               {label: 'Pricing', href: 'https://structra.cloud/pricing'},
+            ],
+          },
+          {
+            title: 'Documentation',
+            items: [
+              {label: 'Getting Started', to: '/getting-started'},
+              {label: 'Evaluation Principles', to: '/evaluation-principles'},
+              {label: 'Structra Basics', to: '/evaluation-principles/structra-basics'},
+            ],
+          },
+          {
+            title: 'Resources',
+            items: [
               {label: 'GitHub', href: 'https://github.com'},
+              {label: 'Status', href: 'https://status.structra.cloud'},
+              {label: 'Support', href: 'mailto:support@structra.cloud'},
             ],
           },
         ],
