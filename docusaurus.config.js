@@ -1,45 +1,29 @@
 // @ts-check
-// `@type` JSDoc annotations allow editor autocompletion and type checking
-// (when paired with `@ts-check`).
-// There are various equivalent ways to declare your Docusaurus config.
-// See: https://docusaurus.io/docs/api/docusaurus-config
-
 import {themes as prismThemes} from 'prism-react-renderer';
-
-// This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Structra Documentation',
-  tagline: 'System Design Architecture',
+  tagline: 'Architecture Quality Intelligence for Engineering Teams',
   favicon: 'img/logo.png',
 
-
-  // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
-    v4: true, // Improve compatibility with the upcoming Docusaurus v4
+    v4: true,
   },
 
-  // Set the production url of your site here
   url: 'https://docs.structra.cloud',
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/', // CRITICAL for the rewrite setup
+  baseUrl: '/',
 
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'structra', // Usually your GitHub org/user name.
-  projectName: 'structra-docs', // Usually your repo name.
+  organizationName: 'structra',
+  projectName: 'structra-docs',
 
   onBrokenLinks: 'warn',
 
-  // Even if you don't use internationalization, you can use this field to set
-  // useful metadata like html lang. For example, if your site is Chinese, you
-  // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
   },
+
   scripts: [
     {
       src: '/js/sidebar-search.js',
@@ -53,10 +37,10 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          routeBasePath: '/', // Serve docs at /docs/ instead of /docs/docs/
+          routeBasePath: '/',
           sidebarPath: './sidebars.js',
         },
-        blog: false, // Disable blog if not needed
+        blog: false,
         theme: {
           customCss: './src/css/custom.css',
         },
@@ -64,23 +48,30 @@ const config = {
     ],
   ],
 
-themeConfig:
+  themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      // 1. Color Mode: Default to user browser/system preference, allow toggle
+      // Dark-first configuration for an enterprise AI product feel.
       colorMode: {
-        defaultMode: 'light',
+        defaultMode: 'dark',
         disableSwitch: false,
         respectPrefersColorScheme: true,
       },
-      
-      // 2. Navbar: Matches your AuthenticatedNavbar.jsx
+
+      // Focused, high-signal product message at the top of every page.
+      announcementBar: {
+        id: 'structra-positioning',
+        content:
+          'Structra · Architecture Quality Intelligence for Engineering Teams',
+        isCloseable: true,
+      },
+
       navbar: {
         title: 'structra.cloud',
         logo: {
           alt: 'Structra Logo',
-          src: 'img/logo.png', // Ensure this file exists in /static/img/
-          srcDark: 'img/logo.png', // Or a white version if you have one
+          src: 'img/logo.png',
+          srcDark: 'img/logo.png',
           href: '/',
           target: '_self',
         },
@@ -89,58 +80,42 @@ themeConfig:
             href: 'https://structra.cloud/app/workspaces',
             label: 'Workspaces',
             position: 'right',
-            className: 'header-link',
+            className: 'header-link nav-workspaces',
           },
           {
             href: 'https://structra.cloud/pricing',
             label: 'Pricing',
             position: 'right',
-            className: 'header-link',
+            className: 'header-link nav-pricing nav-ghost',
           },
           {
             href: 'https://structra.cloud/app',
             label: 'Open App',
             position: 'right',
-            className: 'header-cta',
+            className: 'header-link nav-open-app nav-cta',
           },
         ],
       },
 
-      // 3. Footer: Matches your Footer.jsx
       footer: {
-        style: 'light', // Keep it clean/light to match app
+        style: 'dark',
         links: [
           {
-            title: 'Product',
+            title: 'Platform',
             items: [
-              { label: 'Workspaces', href: 'https://structra.cloud/app/workspaces' },
-              { label: 'Systems', href: 'https://structra.cloud/app/systems' },
-              { label: 'Pricing', href: 'https://structra.cloud/pricing' },
-            ],
-          },
-          {
-            title: 'Resources',
-            items: [
-              { label: 'Documentation', to: '/' },
-              { label: 'Evaluation Principles', to: '/evaluation-principles' },
-              { label: 'Structra App', href: 'https://structra.cloud/app' },
-            ],
-          },
-          {
-            title: 'Company',
-            items: [
-              { label: 'About', href: 'https://structra.cloud/about' },
-              { label: 'Contact', href: 'mailto:support@structra.cloud' },
-              { label: 'Privacy Policy', href: 'https://structra.cloud/privacy' },
-              { label: 'Terms of Service', href: 'https://structra.cloud/terms' },
+              {label: 'Workspaces', href: 'https://structra.cloud/app/workspaces'},
+              {label: 'Pricing', href: 'https://structra.cloud/pricing'},
+              {label: 'GitHub', href: 'https://github.com'},
             ],
           },
         ],
-        copyright: `© ${new Date().getFullYear()} Structra. Built for Scalability.`,
+        // Using HTML here keeps the footer compact and brand-aligned.
+        copyright: `© ${new Date().getFullYear()} Structra · All rights reserved.<br/><span class="footer-powered">Powered by Structra</span>`,
       },
+
       prism: {
-        theme: prismThemes.github,
-        darkTheme: prismThemes.dracula,
+        theme: prismThemes.oneLight,
+        darkTheme: prismThemes.oneDark,
       },
     }),
 };

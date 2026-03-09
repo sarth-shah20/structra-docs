@@ -1,11 +1,43 @@
-.features {
-  display: flex;
-  align-items: center;
-  padding: 2rem 0;
-  width: 100%;
+.section {
+  margin: 2.25rem 0 3rem;
 }
 
-.featureSvg {
-  height: 200px;
-  width: 200px;
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  background: linear-gradient(180deg, rgba(17, 24, 39, 0.84) 0%, rgba(10, 15, 30, 0.92) 100%);
+  border: 1px solid rgba(59, 130, 246, 0.28);
+  border-radius: 14px;
+  padding: 1.1rem;
+  box-shadow: 0 16px 30px rgba(4, 10, 24, 0.4);
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #93c5fd;
+}
+
+.title {
+  margin: 0.45rem 0 0.5rem;
+  font-size: 1.2rem;
+  color: #f8fbff;
+}
+
+.description {
+  margin: 0;
+  color: #9aa8c7;
+  line-height: 1.45;
+}
+
+@media (max-width: 996px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
 }
