@@ -14,16 +14,16 @@ System Design Evaluation Rules v1.0 for `structra.cloud`.
 ## Access and Tier Evaluation Policy
 
 - Everyone can read all documentation, including all 50 rules.
-- The evaluation machine enforces rules based on product tier.
-- `Free` tier evaluation applies `F-01` through `F-20`.
-- `Pro` tier evaluation applies `F-01` through `F-20` and `P-01` through `P-20`.
-- `Enterprise` tier evaluation applies all rules: `F-01` through `F-20` and `P-01` through `P-30`.
+- The evaluation machine enforces rules based on workspace plan.
+- `Core` plan evaluation applies `F-01` through `F-20` only.
+- `Individual`, `Team`, and `Enterprise` plans evaluate all rules: `F-01` through `F-20` and `P-01` through `P-30`.
+- `Basic`, `Pro`, and `Enterprise` labels on rules describe complexity taxonomy only; they are not subscription plans.
 
-Total rules: 50 (`20 Free` + `30 Paid`).
+Total rules: 50 (`20 Basic` + `30 Advanced`).
 
-## Free
+## Basic
 
-Foundational architecture checks. See [Free Rules](/evaluation-principles/structra-basics/free).
+Foundational architecture checks. See [Basic Rules (F-01 to F-20)](/evaluation-principles/structra-basics/free).
 
 ## Pro
 

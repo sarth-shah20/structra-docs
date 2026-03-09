@@ -16,7 +16,7 @@ Use this documentation to understand evaluation rules, tier differences, and exp
 - [Account and Identity](/account-and-identity)
 - [Evaluation Principles](/evaluation-principles)
 - [Structra Basics](/evaluation-principles/structra-basics)
-- [Structra Basics - Free](/evaluation-principles/structra-basics/free)
+- [Structra Basics - Basic Rules (F-01 to F-20)](/evaluation-principles/structra-basics/free)
 - [Structra Basics - Pro](/evaluation-principles/structra-basics/pro)
 - [Structra Basics - Enterprise](/evaluation-principles/structra-basics/enterprise)
 - [Production System Design Principles](/evaluation-principles/production-system-principles)

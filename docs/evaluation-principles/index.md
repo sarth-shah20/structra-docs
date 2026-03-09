@@ -25,10 +25,19 @@ The Structra evaluation framework is organized into principle documents that pro
 - Failure-mode and recovery strategy
 - Security and observability controls
 
-## Tier Progression
+## Rule Taxonomy
 
-- **Free**: Fundamental production hygiene checks
-- **Pro**: Distributed systems and scale pattern checks
-- **Enterprise**: Strict large-scale architecture constraints
+- **Basic (F-01 to F-20)**: Fundamental production hygiene checks
+- **Pro (P-01 to P-20)**: Distributed systems and scale pattern checks
+- **Enterprise (P-21 to P-30)**: Strict large-scale architecture constraints
 
-Everyone can read all docs. Enforcement by tier happens in the evaluation engine.
+These are internal rule-complexity tiers, not subscription plans.
+
+## Subscription Gating
+
+- **Core**: evaluates Basic rules only (`F-01` to `F-20`)
+- **Individual**: evaluates all 50 rules
+- **Team**: evaluates all 50 rules
+- **Enterprise**: evaluates all 50 rules (plus custom rules in future)
+
+Everyone can read all docs. Enforcement by workspace plan happens in the evaluation engine.

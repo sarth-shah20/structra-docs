@@ -55,4 +55,4 @@ External APIs change, go down, and get replaced. Services you depend on today mi
 years. Without explicit boundaries, every change to an external provider requires finding and updating every
 place in your codebase that calls it. With explicit boundaries, it's a well-contained swap. This rule also ensures
 your architecture diagram tells the complete story of what the system depends on.
-Applies to paid Pro and Enterprise evaluations.
+Applies to all plans as part of the Basic rule set (`F-01` to `F-20`).

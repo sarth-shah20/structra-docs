@@ -12,7 +12,7 @@ This guide helps you run your first evaluation quickly and interpret results.
 
 - Create a workspace in Structra.
 - Add your system context (services, databases, queues, external dependencies).
-- Confirm your selected tier (`Free`, `Pro`, or `Enterprise`).
+- Confirm your selected workspace plan (`Core`, `Individual`, `Team`, or `Enterprise`).
 
 ## 2. Define Architecture Inputs
 

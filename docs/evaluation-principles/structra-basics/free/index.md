@@ -1,8 +1,12 @@
 ---
-title: Free
-description: Free tier rules F-01 through F-20.
+title: Basic
+description: Basic taxonomy rules F-01 through F-20.
 ---
 
-# Free
+# Basic
 
-Applies to all evaluations.
+These are the Basic taxonomy rules (`F-01` through `F-20`).
+
+Evaluation gating by workspace plan:
+- Core: evaluates these 20 rules
+- Individual, Team, Enterprise: also evaluate Pro and Enterprise rules

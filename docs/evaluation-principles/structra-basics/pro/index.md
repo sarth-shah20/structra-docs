@@ -1,8 +1,8 @@
 ---
 title: Pro
-description: Pro tier paid rules P-01 through P-20.
+description: Pro taxonomy rules P-01 through P-20.
 ---
 
 # Pro
 
-Applies for paid Pro and Enterprise evaluations.
+Evaluated for Individual, Team, and Enterprise workspace plans.

@@ -1,8 +1,8 @@
 ---
 title: Enterprise
-description: Enterprise additional rules P-21 through P-30.
+description: Enterprise taxonomy rules P-21 through P-30.
 ---
 
 # Enterprise
 
-Includes all Free and Pro rules, plus the additional rules below.
+Includes all Basic and Pro rules, plus the additional rules below.

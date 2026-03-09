@@ -52,4 +52,4 @@ Snapshots are typically taken every N events (e.g., every 100 events) or on a sc
 
 
 
-Applies to paid Pro and Enterprise evaluations.
+Evaluated for Individual, Team, and Enterprise workspace plans.
