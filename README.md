@@ -1,41 +1,114 @@
-# Website
+# Structra Docs
 
-This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
+Documentation site for Structra, built with Docusaurus 3.
 
-## Installation
+## Stack
 
-```bash
-yarn
-```
+- Docusaurus `3.9.2`
+- React `19`
+- Tailwind (utility support in custom styling)
+- Markdown/MDX docs
+
+## Current Site Behavior
+
+- Docs are served at the root path (`/`), not `/docs`.
+- Blog is disabled.
+- Sidebar search is injected by a custom script: `static/js/sidebar-search.js`.
+- Theme is dark-first with an explicit light/dark toggle only (no system mode).
 
 ## Local Development
 
-```bash
-yarn start
-```
-
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
-
-## Build
+Install dependencies:
 
 ```bash
-yarn build
+npm install
 ```
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
+Start dev server:
+
+```bash
+npm start
+```
+
+Build static site:
+
+```bash
+npm run build
+```
+
+Serve built output:
+
+```bash
+npm run serve
+```
+
+Clear Docusaurus cache:
+
+```bash
+npm run clear
+```
+
+## Project Structure
+
+```text
+docs/
+├── docs/                          # Markdown docs content
+│   ├── index.md
+│   ├── getting-started.md
+│   ├── account-and-identity.md
+│   └── evaluation-principles/
+├── src/
+│   ├── css/custom.css             # Global theme + UI styling
+│   └── components/
+│       ├── HomepageFeatures/
+│       └── RuleTable/
+├── static/js/sidebar-search.js    # Sidebar search behavior
+├── docusaurus.config.js           # Site config, navbar/footer/theme
+└── sidebars.js                    # Sidebar structure
+```
+
+## Key Config Notes
+
+- `docusaurus.config.js`
+  - `docs.routeBasePath = '/'`
+  - `theme.customCss = './src/css/custom.css'`
+  - `scripts` includes `/js/sidebar-search.js`
+  - `colorMode.defaultMode = 'dark'`
+  - `respectPrefersColorScheme = false`
+
+## Content Model
+
+Main documentation areas:
+
+- Getting Started
+- Account and Identity
+- Evaluation Principles
+  - Structra Basics (Basic / Pro / Enterprise rule taxonomy)
+  - Production System Design Principles
+
+Important: `Basic / Pro / Enterprise` in these docs refer to evaluation rule tiers, not subscription plan names.
+
+## Writing and Editing Docs
+
+- Add/update docs under `docs/docs/`.
+- Keep frontmatter (`title`, `slug`, etc.) consistent.
+- Use Markdown; use MDX only when components are needed.
+- If using custom table wrappers, `RuleTable` is available at:
+  - `src/components/RuleTable/index.jsx`
 
 ## Deployment
 
-Using SSH:
+Deploy command (if configured for your environment):
 
 ```bash
-USE_SSH=true yarn deploy
+npm run deploy
 ```
 
-Not using SSH:
+## Troubleshooting
+
+- If theme toggle or announcement/footer styles appear stale, hard refresh the browser.
+- If local output seems inconsistent after major style/config changes, run:
 
 ```bash
-GIT_USER=<Your GitHub username> yarn deploy
+npm run clear && npm start
 ```
-
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
