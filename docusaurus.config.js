@@ -67,7 +67,7 @@ const config = {
       },
 
       navbar: {
-        title: 'structra.cloud',
+        title: 'structra',
         logo: {
           alt: 'Structra Logo',
           src: 'img/logo.png',
