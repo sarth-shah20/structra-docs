@@ -808,7 +808,8 @@ div[class*='announcementBarContent'] a {
     display: flex;
     align-items: center;
     gap: 0.3rem;
-    margin-left: auto;
+    margin-right: 0.35rem;
+    flex-wrap: nowrap;
   }
 
   .mobile-navbar-action-icon {
@@ -817,10 +818,10 @@ div[class*='announcementBarContent'] a {
     justify-content: center;
     width: 1.95rem;
     height: 1.95rem;
-    border: 1px solid var(--structra-border-strong);
+    border: none;
     text-decoration: none;
     color: var(--structra-text-muted);
-    background: color-mix(in srgb, var(--structra-bg-soft) 80%, transparent);
+    background: transparent;
   }
 
   .mobile-navbar-action-icon::before {
@@ -850,7 +851,27 @@ div[class*='announcementBarContent'] a {
   .mobile-navbar-action-icon:hover {
     color: var(--structra-text);
     background: rgba(59, 130, 246, 0.12);
-    border-color: rgba(59, 130, 246, 0.45);
+  }
+
+  .mobile-navbar-action-row {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    width: 100%;
+  }
+
+  .mobile-navbar-action-row > * {
+    flex: 0 0 auto;
+  }
+
+  .mobile-navbar-action-row button,
+  .mobile-navbar-action-row .clean-btn,
+  .mobile-navbar-action-row [class*='toggleButton'] {
+    border: none;
+    box-shadow: none;
+    background: transparent;
   }
 
   .navbar-sidebar__item.menu__list-item .menu__link,

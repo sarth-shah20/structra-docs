@@ -1,11 +1,11 @@
 (function () {
-  const WRAP_ID = 'sidebar-search-wrap';
-  const INPUT_ID = 'sidebar-search-input';
-  const DROPDOWN_ID = 'sidebar-search-dropdown';
-  const MOBILE_ACTION_ICONS_ID = 'mobile-navbar-action-icons';
-  const COLLAPSED_CLASS = 'menu__list-item--collapsed';
+  const WRAP_ID = "sidebar-search-wrap";
+  const INPUT_ID = "sidebar-search-input";
+  const DROPDOWN_ID = "sidebar-search-dropdown";
+  const MOBILE_ACTION_ICONS_ID = "mobile-navbar-action-icons";
+  const COLLAPSED_CLASS = "menu__list-item--collapsed";
   const SUGGESTION_LIMIT = 6;
-  const SEARCH_INDEX_URL = '/docs-search-index.json';
+  const SEARCH_INDEX_URL = "/docs-search-index.json";
 
   let preSearchCollapseState = null;
   let searchActive = false;
@@ -15,23 +15,24 @@
   let searchIndexPromise = null;
 
   function norm(v) {
-    return (v || '').toLowerCase().trim();
+    return (v || "").toLowerCase().trim();
   }
 
   function getSidebar() {
-    return document.querySelector('.theme-doc-sidebar-container nav.menu');
+    return document.querySelector(".theme-doc-sidebar-container nav.menu");
   }
 
   function getNavbarDesktopTarget() {
-    const navbarInner = document.querySelector('.navbar .navbar__inner');
-    const rightItems = navbarInner && navbarInner.querySelector('.navbar__items--right');
+    const navbarInner = document.querySelector(".navbar .navbar__inner");
+    const rightItems =
+      navbarInner && navbarInner.querySelector(".navbar__items--right");
     if (!navbarInner || !rightItems) return null;
 
-    let slot = document.getElementById('navbar-search-slot');
+    let slot = document.getElementById("navbar-search-slot");
     if (!slot) {
-      slot = document.createElement('div');
-      slot.id = 'navbar-search-slot';
-      slot.className = 'navbar-search-slot';
+      slot = document.createElement("div");
+      slot.id = "navbar-search-slot";
+      slot.className = "navbar-search-slot";
     }
 
     if (!navbarInner.contains(slot)) {
@@ -43,48 +44,63 @@
 
   function mountMobileQuickLinks() {
     if (window.innerWidth > 996) return;
-    const brandRow = document.querySelector('.navbar-sidebar .navbar-sidebar__brand');
-    if (!brandRow) return;
+    const sidebar = document.querySelector(".navbar-sidebar");
+    const brandRow = document.querySelector(
+      ".navbar-sidebar .navbar-sidebar__brand",
+    );
+    if (!brandRow || !sidebar) return;
 
     let quickLinks = document.getElementById(MOBILE_ACTION_ICONS_ID);
     if (!quickLinks) {
-      quickLinks = document.createElement('div');
+      quickLinks = document.createElement("div");
       quickLinks.id = MOBILE_ACTION_ICONS_ID;
-      quickLinks.className = 'mobile-navbar-action-icons';
+      quickLinks.className = "mobile-navbar-action-icons";
 
       const links = [
         {
-          href: 'https://structra.cloud/app/workspaces',
-          title: 'Workspaces',
-          className: 'mobile-navbar-action-icon mobile-navbar-action-icon--workspaces',
+          href: "https://structra.cloud/app/workspaces",
+          title: "Workspaces",
+          className:
+            "mobile-navbar-action-icon mobile-navbar-action-icon--workspaces",
         },
         {
-          href: 'https://structra.cloud/pricing',
-          title: 'Pricing',
-          className: 'mobile-navbar-action-icon mobile-navbar-action-icon--pricing',
+          href: "https://structra.cloud/pricing",
+          title: "Pricing",
+          className:
+            "mobile-navbar-action-icon mobile-navbar-action-icon--pricing",
         },
         {
-          href: 'https://structra.cloud/app',
-          title: 'Open App',
-          className: 'mobile-navbar-action-icon mobile-navbar-action-icon--app',
+          href: "https://structra.cloud/app",
+          title: "Open App",
+          className: "mobile-navbar-action-icon mobile-navbar-action-icon--app",
         },
       ];
 
       links.forEach(function (linkDef) {
-        const link = document.createElement('a');
+        const link = document.createElement("a");
         link.className = linkDef.className;
         link.href = linkDef.href;
         link.title = linkDef.title;
-        link.setAttribute('aria-label', linkDef.title);
+        link.setAttribute("aria-label", linkDef.title);
         quickLinks.appendChild(link);
       });
     }
 
-    if (!brandRow.contains(quickLinks)) {
-      const themeToggle = brandRow.querySelector('button[class*="colorModeToggle"], button[title*="mode"], button[aria-label*="color mode"]');
-      if (themeToggle && themeToggle.parentNode) {
-        themeToggle.parentNode.insertBefore(quickLinks, themeToggle);
-      } else {
+    const themeToggle = sidebar.querySelector(
+      'button[class*="colorModeToggle"], button[class*="toggleButton"], button[title*="mode"], button[aria-label*="mode"]',
+    );
+    const themeToggleParent =
+      themeToggle && themeToggle.closest(".navbar-sidebar__brand");
+
+    if (themeToggleParent) {
+      themeToggleParent.classList.add("mobile-navbar-action-row");
+      if (!themeToggleParent.contains(quickLinks)) {
+        themeToggleParent.insertBefore(quickLinks, themeToggle);
+      }
+    } else {
+      // Fallback: always mount into the brand bar regardless
+      brandRow.classList.add("mobile-navbar-action-row");
+      if (!brandRow.contains(quickLinks)) {
         brandRow.appendChild(quickLinks);
       }
     }
@@ -98,7 +114,7 @@
     const dropdown = getSuggestionDropdown();
     if (!dropdown) return;
     dropdown.hidden = true;
-    dropdown.innerHTML = '';
+    dropdown.innerHTML = "";
     activeSuggestionIndex = -1;
   }
 
@@ -111,7 +127,7 @@
       searchIndexPromise = fetch(SEARCH_INDEX_URL)
         .then(function (response) {
           if (!response.ok) {
-            throw new Error('Failed to load docs search index');
+            throw new Error("Failed to load docs search index");
           }
           return response.json();
         })
@@ -144,7 +160,9 @@
     const pathWords = pathLabel.split(/\s+/);
     const searchWords = searchText.split(/\s+/);
     const allWords = labelWords.concat(pathWords, searchWords);
-    const allPartsMatch = queryParts.every((part) => allWords.some((word) => word.startsWith(part) || word.includes(part)));
+    const allPartsMatch = queryParts.every((part) =>
+      allWords.some((word) => word.startsWith(part) || word.includes(part)),
+    );
     return allPartsMatch ? 25 : -1;
   }
 
@@ -176,7 +194,7 @@
     const dropdown = getSuggestionDropdown();
     if (!dropdown) return;
 
-    const query = input.value || '';
+    const query = input.value || "";
     const suggestions = getSuggestions(query);
 
     if (!norm(query)) {
@@ -186,39 +204,40 @@
 
     if (suggestions.length === 0) {
       dropdown.hidden = false;
-      dropdown.innerHTML = '<div class="sidebar-search-empty">No matching docs pages.</div>';
+      dropdown.innerHTML =
+        '<div class="sidebar-search-empty">No matching docs pages.</div>';
       activeSuggestionIndex = -1;
       return;
     }
 
     activeSuggestionIndex = 0;
     dropdown.hidden = false;
-    dropdown.innerHTML = '';
+    dropdown.innerHTML = "";
 
-    const list = document.createElement('div');
-    list.className = 'sidebar-search-suggestion-list';
+    const list = document.createElement("div");
+    list.className = "sidebar-search-suggestion-list";
 
     suggestions.forEach((suggestion, index) => {
-      const item = document.createElement('button');
-      item.type = 'button';
-      item.className = 'sidebar-search-suggestion-item';
+      const item = document.createElement("button");
+      item.type = "button";
+      item.className = "sidebar-search-suggestion-item";
       if (index === activeSuggestionIndex) {
-        item.classList.add('is-active');
+        item.classList.add("is-active");
       }
-      item.setAttribute('data-href', suggestion.path);
-      item.setAttribute('data-index', String(index));
+      item.setAttribute("data-href", suggestion.path);
+      item.setAttribute("data-index", String(index));
 
-      const title = document.createElement('div');
-      title.className = 'sidebar-search-suggestion-title';
+      const title = document.createElement("div");
+      title.className = "sidebar-search-suggestion-title";
       title.textContent = suggestion.title;
 
-      const meta = document.createElement('div');
-      meta.className = 'sidebar-search-suggestion-meta';
-      meta.textContent = suggestion.pathLabel || 'Documentation';
+      const meta = document.createElement("div");
+      meta.className = "sidebar-search-suggestion-meta";
+      meta.textContent = suggestion.pathLabel || "Documentation";
 
       item.appendChild(title);
       item.appendChild(meta);
-      item.addEventListener('mousedown', function (event) {
+      item.addEventListener("mousedown", function (event) {
         event.preventDefault();
         goToSuggestion(suggestion.path);
       });
@@ -232,50 +251,63 @@
   function updateActiveSuggestion(nextIndex) {
     const dropdown = getSuggestionDropdown();
     if (!dropdown || dropdown.hidden) return;
-    const items = Array.from(dropdown.querySelectorAll('.sidebar-search-suggestion-item'));
+    const items = Array.from(
+      dropdown.querySelectorAll(".sidebar-search-suggestion-item"),
+    );
     if (!items.length) return;
 
-    activeSuggestionIndex = ((nextIndex % items.length) + items.length) % items.length;
+    activeSuggestionIndex =
+      ((nextIndex % items.length) + items.length) % items.length;
     items.forEach((item, index) => {
-      item.classList.toggle('is-active', index === activeSuggestionIndex);
+      item.classList.toggle("is-active", index === activeSuggestionIndex);
     });
-    items[activeSuggestionIndex].scrollIntoView({block: 'nearest'});
+    items[activeSuggestionIndex].scrollIntoView({ block: "nearest" });
   }
 
   function commitActiveSuggestion() {
     const dropdown = getSuggestionDropdown();
     if (!dropdown || dropdown.hidden) return false;
-    const items = Array.from(dropdown.querySelectorAll('.sidebar-search-suggestion-item'));
+    const items = Array.from(
+      dropdown.querySelectorAll(".sidebar-search-suggestion-item"),
+    );
     const activeItem = items[activeSuggestionIndex];
     if (!activeItem) return false;
-    goToSuggestion(activeItem.getAttribute('data-href'));
+    goToSuggestion(activeItem.getAttribute("data-href"));
     return true;
   }
 
   function getDirectLabel(li) {
-    const link = li.querySelector(':scope > a.menu__link');
-    if (link) return (link.textContent || '').trim();
+    const link = li.querySelector(":scope > a.menu__link");
+    if (link) return (link.textContent || "").trim();
 
-    const collapsibleLink = li.querySelector(':scope > div.menu__list-item-collapsible > a.menu__link');
-    if (collapsibleLink) return (collapsibleLink.textContent || '').trim();
+    const collapsibleLink = li.querySelector(
+      ":scope > div.menu__list-item-collapsible > a.menu__link",
+    );
+    if (collapsibleLink) return (collapsibleLink.textContent || "").trim();
 
-    return '';
+    return "";
   }
 
   function getDirectChildListItem(parent) {
-    return Array.from(parent.children).filter((el) => el.classList.contains('menu__list-item'));
+    return Array.from(parent.children).filter((el) =>
+      el.classList.contains("menu__list-item"),
+    );
   }
 
   function getDirectChildMenuList(li) {
-    return li.querySelector(':scope > ul.menu__list');
+    return li.querySelector(":scope > ul.menu__list");
   }
 
   function getCategoryCaret(li) {
-    return li.querySelector(':scope > div.menu__list-item-collapsible > button.menu__caret');
+    return li.querySelector(
+      ":scope > div.menu__list-item-collapsible > button.menu__caret",
+    );
   }
 
   function isCategoryItem(li) {
-    const collapsible = li.querySelector(':scope > div.menu__list-item-collapsible');
+    const collapsible = li.querySelector(
+      ":scope > div.menu__list-item-collapsible",
+    );
     const childList = getDirectChildMenuList(li);
     return !!(collapsible && childList);
   }
@@ -285,14 +317,20 @@
     li.classList.toggle(COLLAPSED_CLASS, !expanded);
     const caret = getCategoryCaret(li);
     if (caret) {
-      caret.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      caret.setAttribute("aria-expanded", expanded ? "true" : "false");
       const label = getDirectLabel(li);
-      caret.setAttribute('aria-label', (expanded ? 'Collapse' : 'Expand') + " sidebar category '" + label + "'");
+      caret.setAttribute(
+        "aria-label",
+        (expanded ? "Collapse" : "Expand") +
+          " sidebar category '" +
+          label +
+          "'",
+      );
     }
   }
 
   function makeCategoryPath(pathParts, label) {
-    return pathParts.concat([label]).join(' > ');
+    return pathParts.concat([label]).join(" > ");
   }
 
   function snapshotCollapseState(rootList) {
@@ -350,7 +388,7 @@
   function clearDisplayOverrides(ul) {
     const items = getDirectChildListItem(ul);
     items.forEach((li) => {
-      li.style.display = '';
+      li.style.display = "";
       const childUl = getDirectChildMenuList(li);
       if (childUl) {
         clearDisplayOverrides(childUl);
@@ -360,7 +398,9 @@
 
   function filterList(ul, query, pathParts) {
     let hasMatchInSubtree = false;
-    const items = Array.from(ul.children).filter((el) => el.classList.contains('menu__list-item'));
+    const items = Array.from(ul.children).filter((el) =>
+      el.classList.contains("menu__list-item"),
+    );
 
     items.forEach((li) => {
       const label = norm(getDirectLabel(li));
@@ -368,9 +408,9 @@
       const childUl = getDirectChildMenuList(li);
       const childResult = childUl
         ? filterList(childUl, query, pathParts.concat([getDirectLabel(li)]))
-        : {hasMatchInSubtree: false, selfMatches: false};
+        : { hasMatchInSubtree: false, selfMatches: false };
       const visible = selfMatches || childResult.hasMatchInSubtree;
-      li.style.display = visible ? '' : 'none';
+      li.style.display = visible ? "" : "none";
 
       if (query && isCategoryItem(li)) {
         setCategoryExpanded(li, childResult.hasMatchInSubtree);
@@ -379,13 +419,13 @@
       if (visible) hasMatchInSubtree = true;
     });
 
-    return {hasMatchInSubtree, selfMatches: false};
+    return { hasMatchInSubtree, selfMatches: false };
   }
 
   function applyFilter(input) {
     const menu = getSidebar();
     if (!menu) return;
-    const rootList = menu.querySelector(':scope > ul.menu__list');
+    const rootList = menu.querySelector(":scope > ul.menu__list");
     if (!rootList) return;
 
     const q = norm(input.value);
@@ -425,60 +465,60 @@
     let input = document.getElementById(INPUT_ID);
 
     if (!wrap || !input) {
-      wrap = document.createElement('div');
+      wrap = document.createElement("div");
       wrap.id = WRAP_ID;
-      wrap.className = 'sidebar-search-wrap';
+      wrap.className = "sidebar-search-wrap";
 
-      input = document.createElement('input');
+      input = document.createElement("input");
       input.id = INPUT_ID;
-      input.className = 'sidebar-search-input';
-      input.type = 'search';
-      input.placeholder = 'Search docs...';
-      input.setAttribute('aria-label', 'Search documentation navigation');
+      input.className = "sidebar-search-input";
+      input.type = "search";
+      input.placeholder = "Search docs...";
+      input.setAttribute("aria-label", "Search documentation navigation");
 
       wrap.appendChild(input);
 
-      const dropdown = document.createElement('div');
+      const dropdown = document.createElement("div");
       dropdown.id = DROPDOWN_ID;
-      dropdown.className = 'sidebar-search-dropdown';
+      dropdown.className = "sidebar-search-dropdown";
       dropdown.hidden = true;
       wrap.appendChild(dropdown);
 
-      input.addEventListener('input', function () {
+      input.addEventListener("input", function () {
         applyFilter(input);
         ensureSearchIndexLoaded().then(function () {
           renderSuggestions(input);
         });
       });
 
-      input.addEventListener('focus', function () {
+      input.addEventListener("focus", function () {
         ensureSearchIndexLoaded().then(function () {
           renderSuggestions(input);
         });
       });
 
-      input.addEventListener('keydown', function (event) {
+      input.addEventListener("keydown", function (event) {
         const dropdownEl = getSuggestionDropdown();
         const dropdownOpen = dropdownEl && !dropdownEl.hidden;
 
-        if (event.key === 'ArrowDown' && dropdownOpen) {
+        if (event.key === "ArrowDown" && dropdownOpen) {
           event.preventDefault();
           updateActiveSuggestion(activeSuggestionIndex + 1);
           return;
         }
 
-        if (event.key === 'ArrowUp' && dropdownOpen) {
+        if (event.key === "ArrowUp" && dropdownOpen) {
           event.preventDefault();
           updateActiveSuggestion(activeSuggestionIndex - 1);
           return;
         }
 
-        if (event.key === 'Enter' && dropdownOpen && commitActiveSuggestion()) {
+        if (event.key === "Enter" && dropdownOpen && commitActiveSuggestion()) {
           event.preventDefault();
           return;
         }
 
-        if (event.key === 'Escape') {
+        if (event.key === "Escape") {
           closeSuggestions();
         }
       });
@@ -509,7 +549,6 @@
         clearInterval(timer);
       }
     }, 100);
-
   }
 
   const push = history.pushState;
@@ -526,11 +565,11 @@
     setTimeout(ensureMounted, 80);
   };
 
-  window.addEventListener('popstate', ensureMounted);
-  window.addEventListener('load', ensureMounted);
-  document.addEventListener('DOMContentLoaded', ensureMounted);
-  window.addEventListener('resize', ensureMounted);
-  document.addEventListener('mousedown', function (event) {
+  window.addEventListener("popstate", ensureMounted);
+  window.addEventListener("load", ensureMounted);
+  document.addEventListener("DOMContentLoaded", ensureMounted);
+  window.addEventListener("resize", ensureMounted);
+  document.addEventListener("mousedown", function (event) {
     const wrap = document.getElementById(WRAP_ID);
     if (wrap && !wrap.contains(event.target)) {
       closeSuggestions();
