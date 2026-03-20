@@ -3,6 +3,7 @@
   const INPUT_ID = "sidebar-search-input";
   const DROPDOWN_ID = "sidebar-search-dropdown";
   const MOBILE_ACTION_ICONS_ID = "mobile-navbar-action-icons";
+  const MOBILE_TOP_APP_BUTTON_ID = "mobile-top-app-button";
   const COLLAPSED_CLASS = "menu__list-item--collapsed";
   const SUGGESTION_LIMIT = 6;
   const SEARCH_INDEX_URL = "/docs-search-index.json";
@@ -99,6 +100,34 @@
     // Fallback: append if close button is not yet available.
     if (quickLinks.parentElement !== brandRow) {
       brandRow.appendChild(quickLinks);
+    }
+  }
+
+  function mountMobileTopAppButton() {
+    const existingButton = document.getElementById(MOBILE_TOP_APP_BUTTON_ID);
+    if (window.innerWidth > 996) {
+      if (existingButton) {
+        existingButton.remove();
+      }
+      return;
+    }
+
+    const navbarInner = document.querySelector(".navbar .navbar__inner");
+    if (!navbarInner) return;
+
+    let appButton = existingButton;
+    if (!appButton) {
+      appButton = document.createElement("a");
+      appButton.id = MOBILE_TOP_APP_BUTTON_ID;
+      appButton.className = "mobile-top-app-button";
+      appButton.href = "https://structra.cloud/app";
+      appButton.textContent = "App";
+      appButton.title = "Open App";
+      appButton.setAttribute("aria-label", "Open App");
+    }
+
+    if (!navbarInner.contains(appButton)) {
+      navbarInner.appendChild(appButton);
     }
   }
 
@@ -535,6 +564,7 @@
   }
 
   function ensureMounted() {
+    mountMobileTopAppButton();
     mountMobileQuickLinks();
     if (mountSearch()) return;
 

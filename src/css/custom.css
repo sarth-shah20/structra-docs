@@ -763,6 +763,30 @@ div[class*='announcementBarContent'] a {
     white-space: nowrap;
   }
 
+  .mobile-top-app-button {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 2rem;
+    padding: 0 0.72rem;
+    border: 1px solid rgba(59, 130, 246, 0.36);
+    color: #f8fbff;
+    background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.84rem;
+    line-height: 1;
+    border-radius: 0;
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.24);
+  }
+
+  .mobile-top-app-button:hover {
+    color: #ffffff;
+    text-decoration: none;
+    background: linear-gradient(180deg, #4b8ff8 0%, #1d4ed8 100%);
+  }
+
   .navbar-sidebar__backdrop {
     background: rgba(2, 8, 24, 0.52);
     backdrop-filter: blur(2px);
