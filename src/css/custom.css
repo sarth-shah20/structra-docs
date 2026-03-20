@@ -70,6 +70,8 @@
   --structra-text-subtle: #64748b;
   --ifm-font-color-base: #0f172a;
   --ifm-heading-color: #0b1222;
+  --ifm-link-color: #2563eb;
+  --ifm-link-hover-color: #1d4ed8;
   --ifm-background-color: #f7f9ff;
   --ifm-background-surface-color: #ffffff;
   --ifm-navbar-background-color: rgba(247, 249, 255, 0.82);
