@@ -1,65 +1,86 @@
 ---
 sidebar_position: 2
 title: Production System Design Principles
-description: Advanced production architecture principles for high-scale and high-reliability systems.
+description: Advanced production architecture principles for reliability, concurrency safety, and survivability at scale.
 slug: /evaluation-principles/production-system-principles
+toc_min_heading_level: 2
+toc_max_heading_level: 2
 ---
 
 # Production System Design Principles
 
-These principles are for high-stakes production architecture reviews. They focus on failure containment, correctness under concurrency, and operational survivability at scale.
+These principles are intended for high-stakes production architecture reviews where correctness under load, fault containment, and operational survivability matter as much as feature delivery.
 
-## PRD-01: End-to-End Deadline Propagation
-Every inbound request must carry a deadline budget propagated across all downstream calls. Local service timeouts without inherited deadlines create request amplification and tail-latency collapse.
+:::note Scope
+This page is a reference set of advanced production design principles. It complements the rule framework in `Structra Basics` and is especially useful during senior architecture review, pre-launch hardening, and scale-readiness discussions.
+:::
 
-## PRD-02: Timeout Hierarchy Must Be Monotonic
-Client timeout must be greater than gateway timeout, which must be greater than service timeout, which must be greater than datastore timeout. Non-monotonic timeout trees cause retry storms and duplicate work.
+## What This Section Covers
 
-## PRD-03: Backpressure Is Mandatory on Every Queue Boundary
-Producers must respond to consumer lag using bounded queues, adaptive throttling, and explicit shed policies. Unbounded buffers hide overload until catastrophic memory or latency failure.
+The principles on this page focus on production behaviors that frequently separate systems that merely function from systems that remain stable during growth, incidents, and operational stress.
 
-## PRD-04: Load Shedding Before Saturation
-Services must reject low-priority traffic before CPU, connection pools, or thread pools saturate. Controlled rejection preserves core paths and prevents full-cluster brownouts.
+- Deadline and timeout discipline
+- Queue safety and backpressure
+- Isolation boundaries for dependencies and tenants
+- Schema, migration, and cross-system consistency safety
+- Reliability operations such as `SLO`, alerting, capacity planning, and disaster recovery
 
-## PRD-05: Bulkheads for Dependency Isolation
-Each critical dependency requires isolated worker pools, connection pools, and circuit breaker state. Shared pools allow one failing dependency to collapse unrelated flows.
+## When to Use These Principles
 
-## PRD-06: Control Plane and Data Plane Separation
-Configuration, orchestration, and policy updates must be isolated from request-serving execution paths. Control-plane instability must never halt data-plane serving.
+Use this section when architecture decisions affect correctness, survivability, or blast radius at production scale.
 
-## PRD-07: Cell-Based Isolation for Tenant Blast Radius
-Large multi-tenant systems must partition tenants into cells with isolated compute and data boundaries. A single noisy or broken tenant must not degrade global SLO.
+- Before large launches or migrations
+- When introducing multi-region, queue-heavy, or high-concurrency designs
+- During incident-driven architecture review
+- When validating whether reliability claims are actually supported by the system design
 
-## PRD-08: Hot Partition Detection and Shard Rebalancing
-Partition strategies must include continuous skew detection and live rebalancing mechanisms. Static keys without skew management eventually create irreversible hot shards.
+## Request Path and Overload Control
 
-## PRD-09: Schema Evolution Requires Compatibility Guarantees
-Message and API schema changes must maintain explicit backward/forward compatibility windows with contract tests. Non-versioned schema changes are distributed outage vectors.
+- **`PRD-01 End-to-End Deadline Propagation`**: Every inbound request should carry a deadline budget across downstream calls. Local timeouts without inherited deadlines create request amplification and tail-latency collapse.
+- **`PRD-02 Timeout Hierarchy Must Be Monotonic`**: Client timeout should exceed gateway timeout, which should exceed service timeout, which should exceed datastore timeout. Broken timeout ordering leads to duplicate work and retry storms.
+- **`PRD-03 Backpressure Is Mandatory on Every Queue Boundary`**: Producers must react to consumer lag with bounded queues, throttling, or explicit shedding. Unbounded buffering hides overload until failure becomes catastrophic.
+- **`PRD-04 Load Shedding Before Saturation`**: Low-priority traffic should be rejected before CPU, thread pools, or connection pools saturate. Controlled rejection preserves core paths during stress.
 
-## PRD-10: Online Data Migration Without Write Freeze
-Large migrations require phased rollout: dual-read or shadow-read validation, chunked backfills, and cutover guarded by parity metrics. Big-bang migration windows are operationally unsafe.
+## Isolation and Failure Containment
 
-## PRD-11: Outbox + Idempotent Consumer for Cross-System Consistency
-State change events must be emitted through transactional outbox, and downstream consumers must dedupe by idempotency key. Dual-write without outbox is eventual data divergence.
+- **`PRD-05 Bulkheads for Dependency Isolation`**: Critical dependencies need isolated worker pools, connection pools, and circuit-breaker state. Shared pools let one failing dependency collapse unrelated flows.
+- **`PRD-06 Control Plane and Data Plane Separation`**: Configuration and orchestration paths must not destabilize live serving paths. Control-plane turbulence should never halt request handling.
+- **`PRD-07 Cell-Based Isolation for Tenant Blast Radius`**: Large multi-tenant systems should partition tenants into isolated cells so one tenant cannot degrade global `SLO`.
+- **`PRD-08 Hot Partition Detection and Shard Rebalancing`**: Partitioning strategies must include skew detection and rebalancing. Static shard keys eventually create irreversible hot spots.
 
-## PRD-12: Exactly-Once Delivery Must Not Be Assumed
-Distributed messaging must be designed for at-least-once semantics with deterministic deduplication. Claims of exactly-once correctness without end-to-end proof are invalid.
+## Data Evolution and Consistency Safety
 
-## PRD-13: Multi-Region Strategy Includes Conflict Semantics
-Multi-region write paths must define conflict resolution policy (last-writer-wins, CRDT, domain-specific merge, or hard ownership). Replication without conflict semantics is correctness debt.
+- **`PRD-09 Schema Evolution Requires Compatibility Guarantees`**: API and message schemas need explicit backward and forward compatibility windows backed by contract testing.
+- **`PRD-10 Online Data Migration Without Write Freeze`**: Large migrations should use phased rollout, validation, and guarded cutover. Big-bang migration windows are operationally unsafe.
+- **`PRD-11 Outbox + Idempotent Consumer for Cross-System Consistency`**: Cross-system state propagation should use transactional outbox and idempotent consumers. Dual-write without outbox is a divergence pattern.
+- **`PRD-12 Exactly-Once Delivery Must Not Be Assumed`**: Messaging should be designed around at-least-once delivery with deterministic deduplication. Exactly-once claims require end-to-end proof, not platform marketing language.
+- **`PRD-13 Multi-Region Strategy Includes Conflict Semantics`**: Multi-region write systems must define conflict resolution explicitly. Replication without conflict policy is delayed correctness debt.
 
-## PRD-14: Dependency Budgeting and Criticality Tiers
-Every external dependency must have an assigned criticality tier with explicit fallback mode and allowed error budget consumption. Unclassified dependencies make incident response non-deterministic.
+## Dependency and Reliability Governance
 
-## PRD-15: SLO Error Budget Governs Release Velocity
-Release gates must be tied to error budget burn, not calendar cadence. Shipping while budget is exhausted converts reliability debt into recurring incidents.
+- **`PRD-14 Dependency Budgeting and Criticality Tiers`**: Every external dependency should have a criticality tier, fallback mode, and error-budget policy so incident response remains deterministic.
+- **`PRD-15 SLO Error Budget Governs Release Velocity`**: Release decisions should respond to error-budget burn, not just delivery cadence. Shipping through reliability exhaustion converts debt into incidents.
+- **`PRD-16 Alerting Must Map to User-Visible Impact`**: Alerts should be tied to golden signals, `SLO` burn, clear ownership, and runbooks. Threshold-only paging creates noise without actionability.
+- **`PRD-17 Capacity Model Includes Saturation Forecasting`**: Capacity planning must account for CPU, memory, `IOPS`, network egress, and connection ceilings under tail latency, not just averages.
+- **`PRD-18 Disaster Recovery Is Tested, Not Declared`**: `RTO` and `RPO` targets only become credible when failover and restore drills verify them.
 
-## PRD-16: Alerting Must Map to User-Visible Impact
-Alerts should be derived from golden signals and SLO burn rates, with runbook links and owner routing attached. Metric-threshold-only alerting creates noisy, low-action pages.
+## Evidence Reviewers Should Look For
 
-## PRD-17: Capacity Model Includes Saturation Forecasting
-Capacity planning must model CPU, memory, IOPS, network egress, and connection ceilings under p95 and p99 load, plus growth horizon. Average-only planning misses tail-driven failures.
+When reviewing a production system against these principles, gather evidence that shows not only architecture intent but also operational proof.
 
-## PRD-18: Disaster Recovery Is Tested, Not Declared
-RTO/RPO targets must be verified with scheduled failover and restore drills. Unexercised DR plans are documentation artifacts, not operational guarantees.
+- Timeout and retry policy definitions
+- Queue depth, buffering, and shed-policy design
+- Partitioning and tenancy boundaries
+- Migration plans and schema compatibility strategy
+- `SLO`, alert routing, capacity forecasts, and disaster recovery procedures
 
+## How to Apply These Principles
+
+These principles are most useful when treated as review prompts, not slogans.
+
+1. Identify the small number of production failure modes that would hurt the business most.
+2. Map those failure modes to the relevant principles on this page.
+3. Confirm that the architecture contains explicit mechanisms, not implied intentions.
+4. Record gaps as follow-up design actions before launch or scale-up.
+
+The strongest production architectures are usually the ones that make stress behavior explicit long before stress actually arrives.
