@@ -2,6 +2,7 @@
   const WRAP_ID = 'sidebar-search-wrap';
   const INPUT_ID = 'sidebar-search-input';
   const COLLAPSED_CLASS = 'menu__list-item--collapsed';
+  const MOBILE_BREAKPOINT = 996;
 
   let preSearchCollapseState = null;
   let searchActive = false;
@@ -13,6 +14,29 @@
 
   function getSidebar() {
     return document.querySelector('.theme-doc-sidebar-container nav.menu');
+  }
+
+  function isMobileView() {
+    return window.innerWidth <= MOBILE_BREAKPOINT;
+  }
+
+  function getNavbarDesktopTarget() {
+    const navbarInner = document.querySelector('.navbar .navbar__inner');
+    const rightItems = navbarInner && navbarInner.querySelector('.navbar__items--right');
+    if (!navbarInner || !rightItems) return null;
+
+    let slot = document.getElementById('navbar-search-slot');
+    if (!slot) {
+      slot = document.createElement('div');
+      slot.id = 'navbar-search-slot';
+      slot.className = 'navbar-search-slot';
+    }
+
+    if (!navbarInner.contains(slot)) {
+      navbarInner.insertBefore(slot, rightItems);
+    }
+
+    return slot;
   }
 
   function getDirectLabel(li) {
@@ -181,7 +205,8 @@
 
   function mountSearch() {
     const menu = getSidebar();
-    if (!menu) return false;
+    const mountTarget = isMobileView() ? menu : getNavbarDesktopTarget();
+    if (!menu || !mountTarget) return false;
 
     let wrap = document.getElementById(WRAP_ID);
     let input = document.getElementById(INPUT_ID);
@@ -199,13 +224,18 @@
       input.setAttribute('aria-label', 'Search sidebar navigation');
 
       wrap.appendChild(input);
-      menu.prepend(wrap);
 
       input.addEventListener('input', function () {
         applyFilter(input);
       });
-    } else if (!menu.contains(wrap)) {
-      menu.prepend(wrap);
+    }
+
+    if (!mountTarget.contains(wrap)) {
+      if (isMobileView()) {
+        mountTarget.prepend(wrap);
+      } else {
+        mountTarget.appendChild(wrap);
+      }
     }
 
     if (input.value && input.value.trim()) {
@@ -244,4 +274,5 @@
   window.addEventListener('popstate', ensureMounted);
   window.addEventListener('load', ensureMounted);
   document.addEventListener('DOMContentLoaded', ensureMounted);
+  window.addEventListener('resize', ensureMounted);
 })();

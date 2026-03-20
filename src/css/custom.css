@@ -151,6 +151,25 @@ body {
   margin-left: 0.5rem;
 }
 
+.navbar-search-slot {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  min-width: 0;
+  padding: 0 1rem;
+}
+
+.navbar-search-slot .sidebar-search-wrap {
+  width: min(100%, 420px);
+  padding: 0;
+}
+
+.navbar-search-slot .sidebar-search-input {
+  height: 2.35rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--structra-bg-elevated) 82%, transparent);
+}
+
 .navbar__item.nav-workspaces .navbar__link::before,
 .navbar__item.nav-pricing .navbar__link::before,
 .navbar__item.nav-open-app .navbar__link::before {
@@ -626,6 +645,10 @@ div[class*='announcementBarContent'] a {
 }
 
 @media (max-width: 996px) {
+  .navbar-search-slot {
+    display: none;
+  }
+
   .navbar {
     backdrop-filter: blur(10px);
   }
