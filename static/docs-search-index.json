@@ -1,0 +1,356 @@
+[
+  {
+    "title": "Account and Identity",
+    "path": "/account-and-identity",
+    "pathLabel": "",
+    "searchText": "Account and Identity account-and-identity.md  account-and-identity"
+  },
+  {
+    "title": "Evaluation Principles",
+    "path": "/evaluation-principles",
+    "pathLabel": "",
+    "searchText": "Evaluation Principles evaluation-principles index.md  evaluation-principles"
+  },
+  {
+    "title": "Production System Design Principles",
+    "path": "/evaluation-principles/production-system-principles",
+    "pathLabel": "Evaluation Principles",
+    "searchText": "Production System Design Principles Evaluation Principles evaluation-principles production-system-principles.md  evaluation-principles production-system-principles"
+  },
+  {
+    "title": "Enterprise",
+    "path": "/evaluation-principles/structra-basics/enterprise",
+    "pathLabel": "Evaluation Principles / Structra Basics",
+    "searchText": "Enterprise Evaluation Principles Structra Basics evaluation-principles structra-basics enterprise index.md  evaluation-principles structra-basics enterprise"
+  },
+  {
+    "title": "P-21 CQRS Separation",
+    "path": "/evaluation-principles/structra-basics/enterprise/p-21-cqrs-command-and-query-models-are-separate",
+    "pathLabel": "Evaluation Principles / Structra Basics / Enterprise",
+    "searchText": "P-21 CQRS Separation Evaluation Principles Structra Basics Enterprise evaluation-principles structra-basics enterprise p-21-cqrs-command-and-query-models-are-separate.md  evaluation-principles structra-basics enterprise p-21-cqrs-command-and-query-models-are-separate"
+  },
+  {
+    "title": "P-22 Search Indexing",
+    "path": "/evaluation-principles/structra-basics/enterprise/p-22-search-index-is-not-the-primary-store",
+    "pathLabel": "Evaluation Principles / Structra Basics / Enterprise",
+    "searchText": "P-22 Search Indexing Evaluation Principles Structra Basics Enterprise evaluation-principles structra-basics enterprise p-22-search-index-is-not-the-primary-store.md  evaluation-principles structra-basics enterprise p-22-search-index-is-not-the-primary-store"
+  },
+  {
+    "title": "P-23 Time-Series Storage",
+    "path": "/evaluation-principles/structra-basics/enterprise/p-23-time-series-data-uses-appropriate-storage",
+    "pathLabel": "Evaluation Principles / Structra Basics / Enterprise",
+    "searchText": "P-23 Time-Series Storage Evaluation Principles Structra Basics Enterprise evaluation-principles structra-basics enterprise p-23-time-series-data-uses-appropriate-storage.md  evaluation-principles structra-basics enterprise p-23-time-series-data-uses-appropriate-storage"
+  },
+  {
+    "title": "P-24 Object Storage",
+    "path": "/evaluation-principles/structra-basics/enterprise/p-24-object-storage-for-binary-and-large-assets",
+    "pathLabel": "Evaluation Principles / Structra Basics / Enterprise",
+    "searchText": "P-24 Object Storage Evaluation Principles Structra Basics Enterprise evaluation-principles structra-basics enterprise p-24-object-storage-for-binary-and-large-assets.md  evaluation-principles structra-basics enterprise p-24-object-storage-for-binary-and-large-assets"
+  },
+  {
+    "title": "P-25 Secret Management",
+    "path": "/evaluation-principles/structra-basics/enterprise/p-25-secrets-not-stored-in-application-config",
+    "pathLabel": "Evaluation Principles / Structra Basics / Enterprise",
+    "searchText": "P-25 Secret Management Evaluation Principles Structra Basics Enterprise evaluation-principles structra-basics enterprise p-25-secrets-not-stored-in-application-config.md  evaluation-principles structra-basics enterprise p-25-secrets-not-stored-in-application-config"
+  },
+  {
+    "title": "P-26 Data Encryption",
+    "path": "/evaluation-principles/structra-basics/enterprise/p-26-data-encryption-at-rest-and-in-transit",
+    "pathLabel": "Evaluation Principles / Structra Basics / Enterprise",
+    "searchText": "P-26 Data Encryption Evaluation Principles Structra Basics Enterprise evaluation-principles structra-basics enterprise p-26-data-encryption-at-rest-and-in-transit.md  evaluation-principles structra-basics enterprise p-26-data-encryption-at-rest-and-in-transit"
+  },
+  {
+    "title": "P-27 Auth Separation",
+    "path": "/evaluation-principles/structra-basics/enterprise/p-27-authorization-layer-distinct-from-authentication",
+    "pathLabel": "Evaluation Principles / Structra Basics / Enterprise",
+    "searchText": "P-27 Auth Separation Evaluation Principles Structra Basics Enterprise evaluation-principles structra-basics enterprise p-27-authorization-layer-distinct-from-authentication.md  evaluation-principles structra-basics enterprise p-27-authorization-layer-distinct-from-authentication"
+  },
+  {
+    "title": "P-28 PII Auditing",
+    "path": "/evaluation-principles/structra-basics/enterprise/p-28-pii-data-access-is-audited",
+    "pathLabel": "Evaluation Principles / Structra Basics / Enterprise",
+    "searchText": "P-28 PII Auditing Evaluation Principles Structra Basics Enterprise evaluation-principles structra-basics enterprise p-28-pii-data-access-is-audited.md  evaluation-principles structra-basics enterprise p-28-pii-data-access-is-audited"
+  },
+  {
+    "title": "P-29 Full Observability",
+    "path": "/evaluation-principles/structra-basics/enterprise/p-29-three-pillars-of-observability-present",
+    "pathLabel": "Evaluation Principles / Structra Basics / Enterprise",
+    "searchText": "P-29 Full Observability Evaluation Principles Structra Basics Enterprise evaluation-principles structra-basics enterprise p-29-three-pillars-of-observability-present.md  evaluation-principles structra-basics enterprise p-29-three-pillars-of-observability-present"
+  },
+  {
+    "title": "P-30 SLO Alerting",
+    "path": "/evaluation-principles/structra-basics/enterprise/p-30-alerting-tied-to-slos-not-just-thresholds",
+    "pathLabel": "Evaluation Principles / Structra Basics / Enterprise",
+    "searchText": "P-30 SLO Alerting Evaluation Principles Structra Basics Enterprise evaluation-principles structra-basics enterprise p-30-alerting-tied-to-slos-not-just-thresholds.md  evaluation-principles structra-basics enterprise p-30-alerting-tied-to-slos-not-just-thresholds"
+  },
+  {
+    "title": "F-01 Protocol Fit",
+    "path": "/evaluation-principles/structra-basics/free/f-01-api-protocol-fit",
+    "pathLabel": "Evaluation Principles / Structra Basics / Basic",
+    "searchText": "F-01 Protocol Fit Evaluation Principles Structra Basics Basic evaluation-principles structra-basics free f-01-api-protocol-fit.md  evaluation-principles structra-basics free f-01-api-protocol-fit"
+  },
+  {
+    "title": "F-02 Failure Points",
+    "path": "/evaluation-principles/structra-basics/free/f-02-single-point-of-failure-identification",
+    "pathLabel": "Evaluation Principles / Structra Basics / Basic",
+    "searchText": "F-02 Failure Points Evaluation Principles Structra Basics Basic evaluation-principles structra-basics free f-02-single-point-of-failure-identification.md  evaluation-principles structra-basics free f-02-single-point-of-failure-identification"
+  },
+  {
+    "title": "F-03 Stateless Services",
+    "path": "/evaluation-principles/structra-basics/free/f-03-stateless-service-layer",
+    "pathLabel": "Evaluation Principles / Structra Basics / Basic",
+    "searchText": "F-03 Stateless Services Evaluation Principles Structra Basics Basic evaluation-principles structra-basics free f-03-stateless-service-layer.md  evaluation-principles structra-basics free f-03-stateless-service-layer"
+  },
+  {
+    "title": "F-04 DB Choice",
+    "path": "/evaluation-principles/structra-basics/free/f-04-database-selection-justification",
+    "pathLabel": "Evaluation Principles / Structra Basics / Basic",
+    "searchText": "F-04 DB Choice Evaluation Principles Structra Basics Basic evaluation-principles structra-basics free f-04-database-selection-justification.md  evaluation-principles structra-basics free f-04-database-selection-justification"
+  },
+  {
+    "title": "F-05 Cache Layer",
+    "path": "/evaluation-principles/structra-basics/free/f-05-caching-layer-presence",
+    "pathLabel": "Evaluation Principles / Structra Basics / Basic",
+    "searchText": "F-05 Cache Layer Evaluation Principles Structra Basics Basic evaluation-principles structra-basics free f-05-caching-layer-presence.md  evaluation-principles structra-basics free f-05-caching-layer-presence"
+  },
+  {
+    "title": "F-06 Eviction Policy",
+    "path": "/evaluation-principles/structra-basics/free/f-06-cache-eviction-policy-declared",
+    "pathLabel": "Evaluation Principles / Structra Basics / Basic",
+    "searchText": "F-06 Eviction Policy Evaluation Principles Structra Basics Basic evaluation-principles structra-basics free f-06-cache-eviction-policy-declared.md  evaluation-principles structra-basics free f-06-cache-eviction-policy-declared"
+  },
+  {
+    "title": "F-07 Load Balancing",
+    "path": "/evaluation-principles/structra-basics/free/f-07-load-balancer-placement",
+    "pathLabel": "Evaluation Principles / Structra Basics / Basic",
+    "searchText": "F-07 Load Balancing Evaluation Principles Structra Basics Basic evaluation-principles structra-basics free f-07-load-balancer-placement.md  evaluation-principles structra-basics free f-07-load-balancer-placement"
+  },
+  {
+    "title": "F-08 Status Codes",
+    "path": "/evaluation-principles/structra-basics/free/f-08-http-status-code-correctness",
+    "pathLabel": "Evaluation Principles / Structra Basics / Basic",
+    "searchText": "F-08 Status Codes Evaluation Principles Structra Basics Basic evaluation-principles structra-basics free f-08-http-status-code-correctness.md  evaluation-principles structra-basics free f-08-http-status-code-correctness"
+  },
+  {
+    "title": "F-09 Write Idempotency",
+    "path": "/evaluation-principles/structra-basics/free/f-09-idempotency-for-write-operations",
+    "pathLabel": "Evaluation Principles / Structra Basics / Basic",
+    "searchText": "F-09 Write Idempotency Evaluation Principles Structra Basics Basic evaluation-principles structra-basics free f-09-idempotency-for-write-operations.md  evaluation-principles structra-basics free f-09-idempotency-for-write-operations"
+  },
+  {
+    "title": "F-10 Auth Method",
+    "path": "/evaluation-principles/structra-basics/free/f-10-authentication-mechanism-defined",
+    "pathLabel": "Evaluation Principles / Structra Basics / Basic",
+    "searchText": "F-10 Auth Method Evaluation Principles Structra Basics Basic evaluation-principles structra-basics free f-10-authentication-mechanism-defined.md  evaluation-principles structra-basics free f-10-authentication-mechanism-defined"
+  },
+  {
+    "title": "F-11 DNS CDN",
+    "path": "/evaluation-principles/structra-basics/free/f-11-dns-and-cdn-for-public-facing-systems",
+    "pathLabel": "Evaluation Principles / Structra Basics / Basic",
+    "searchText": "F-11 DNS CDN Evaluation Principles Structra Basics Basic evaluation-principles structra-basics free f-11-dns-and-cdn-for-public-facing-systems.md  evaluation-principles structra-basics free f-11-dns-and-cdn-for-public-facing-systems"
+  },
+  {
+    "title": "F-12 Sync Async",
+    "path": "/evaluation-principles/structra-basics/free/f-12-synchronous-vs-asynchronous-boundary-declared",
+    "pathLabel": "Evaluation Principles / Structra Basics / Basic",
+    "searchText": "F-12 Sync Async Evaluation Principles Structra Basics Basic evaluation-principles structra-basics free f-12-synchronous-vs-asynchronous-boundary-declared.md  evaluation-principles structra-basics free f-12-synchronous-vs-asynchronous-boundary-declared"
+  },
+  {
+    "title": "F-13 Data Replication",
+    "path": "/evaluation-principles/structra-basics/free/f-13-data-replication-strategy-stated",
+    "pathLabel": "Evaluation Principles / Structra Basics / Basic",
+    "searchText": "F-13 Data Replication Evaluation Principles Structra Basics Basic evaluation-principles structra-basics free f-13-data-replication-strategy-stated.md  evaluation-principles structra-basics free f-13-data-replication-strategy-stated"
+  },
+  {
+    "title": "F-14 Architecture Style",
+    "path": "/evaluation-principles/structra-basics/free/f-14-monolith-vs-microservice-decision-justified",
+    "pathLabel": "Evaluation Principles / Structra Basics / Basic",
+    "searchText": "F-14 Architecture Style Evaluation Principles Structra Basics Basic evaluation-principles structra-basics free f-14-monolith-vs-microservice-decision-justified.md  evaluation-principles structra-basics free f-14-monolith-vs-microservice-decision-justified"
+  },
+  {
+    "title": "F-15 Capacity Estimates",
+    "path": "/evaluation-principles/structra-basics/free/f-15-back-of-envelope-estimates-present",
+    "pathLabel": "Evaluation Principles / Structra Basics / Basic",
+    "searchText": "F-15 Capacity Estimates Evaluation Principles Structra Basics Basic evaluation-principles structra-basics free f-15-back-of-envelope-estimates-present.md  evaluation-principles structra-basics free f-15-back-of-envelope-estimates-present"
+  },
+  {
+    "title": "F-16 Requirement Separation",
+    "path": "/evaluation-principles/structra-basics/free/f-16-functional-requirements-separation",
+    "pathLabel": "Evaluation Principles / Structra Basics / Basic",
+    "searchText": "F-16 Requirement Separation Evaluation Principles Structra Basics Basic evaluation-principles structra-basics free f-16-functional-requirements-separation.md  evaluation-principles structra-basics free f-16-functional-requirements-separation"
+  },
+  {
+    "title": "F-17 Failure Handling",
+    "path": "/evaluation-principles/structra-basics/free/f-17-failure-mode-acknowledgment",
+    "pathLabel": "Evaluation Principles / Structra Basics / Basic",
+    "searchText": "F-17 Failure Handling Evaluation Principles Structra Basics Basic evaluation-principles structra-basics free f-17-failure-mode-acknowledgment.md  evaluation-principles structra-basics free f-17-failure-mode-acknowledgment"
+  },
+  {
+    "title": "F-18 Storage Separation",
+    "path": "/evaluation-principles/structra-basics/free/f-18-data-storage-separation-by-access-pattern",
+    "pathLabel": "Evaluation Principles / Structra Basics / Basic",
+    "searchText": "F-18 Storage Separation Evaluation Principles Structra Basics Basic evaluation-principles structra-basics free f-18-data-storage-separation-by-access-pattern.md  evaluation-principles structra-basics free f-18-data-storage-separation-by-access-pattern"
+  },
+  {
+    "title": "F-19 ID Strategy",
+    "path": "/evaluation-principles/structra-basics/free/f-19-unique-id-strategy-defined",
+    "pathLabel": "Evaluation Principles / Structra Basics / Basic",
+    "searchText": "F-19 ID Strategy Evaluation Principles Structra Basics Basic evaluation-principles structra-basics free f-19-unique-id-strategy-defined.md  evaluation-principles structra-basics free f-19-unique-id-strategy-defined"
+  },
+  {
+    "title": "F-20 Dependency Boundaries",
+    "path": "/evaluation-principles/structra-basics/free/f-20-external-dependency-boundaries-drawn",
+    "pathLabel": "Evaluation Principles / Structra Basics / Basic",
+    "searchText": "F-20 Dependency Boundaries Evaluation Principles Structra Basics Basic evaluation-principles structra-basics free f-20-external-dependency-boundaries-drawn.md  evaluation-principles structra-basics free f-20-external-dependency-boundaries-drawn"
+  },
+  {
+    "title": "Basic",
+    "path": "/evaluation-principles/structra-basics/free",
+    "pathLabel": "Evaluation Principles / Structra Basics",
+    "searchText": "Basic Evaluation Principles Structra Basics evaluation-principles structra-basics free index.md  evaluation-principles structra-basics free"
+  },
+  {
+    "title": "Structra Basics",
+    "path": "/evaluation-principles/structra-basics",
+    "pathLabel": "Evaluation Principles",
+    "searchText": "Structra Basics Evaluation Principles evaluation-principles structra-basics index.md  evaluation-principles structra-basics"
+  },
+  {
+    "title": "Pro",
+    "path": "/evaluation-principles/structra-basics/pro",
+    "pathLabel": "Evaluation Principles / Structra Basics",
+    "searchText": "Pro Evaluation Principles Structra Basics evaluation-principles structra-basics pro index.md  evaluation-principles structra-basics pro"
+  },
+  {
+    "title": "P-01 Horizontal Scaling",
+    "path": "/evaluation-principles/structra-basics/pro/p-01-horizontal-scaling-path-defined",
+    "pathLabel": "Evaluation Principles / Structra Basics / Pro",
+    "searchText": "P-01 Horizontal Scaling Evaluation Principles Structra Basics Pro evaluation-principles structra-basics pro p-01-horizontal-scaling-path-defined.md  evaluation-principles structra-basics pro p-01-horizontal-scaling-path-defined"
+  },
+  {
+    "title": "P-02 Sharding Strategy",
+    "path": "/evaluation-principles/structra-basics/pro/p-02-database-sharding-strategy-valid",
+    "pathLabel": "Evaluation Principles / Structra Basics / Pro",
+    "searchText": "P-02 Sharding Strategy Evaluation Principles Structra Basics Pro evaluation-principles structra-basics pro p-02-database-sharding-strategy-valid.md  evaluation-principles structra-basics pro p-02-database-sharding-strategy-valid"
+  },
+  {
+    "title": "P-03 Traffic Ratio",
+    "path": "/evaluation-principles/structra-basics/pro/p-03-read-write-ratio-influences-architecture",
+    "pathLabel": "Evaluation Principles / Structra Basics / Pro",
+    "searchText": "P-03 Traffic Ratio Evaluation Principles Structra Basics Pro evaluation-principles structra-basics pro p-03-read-write-ratio-influences-architecture.md  evaluation-principles structra-basics pro p-03-read-write-ratio-influences-architecture"
+  },
+  {
+    "title": "P-04 Rate Limiting",
+    "path": "/evaluation-principles/structra-basics/pro/p-04-rate-limiting-strategy-specified",
+    "pathLabel": "Evaluation Principles / Structra Basics / Pro",
+    "searchText": "P-04 Rate Limiting Evaluation Principles Structra Basics Pro evaluation-principles structra-basics pro p-04-rate-limiting-strategy-specified.md  evaluation-principles structra-basics pro p-04-rate-limiting-strategy-specified"
+  },
+  {
+    "title": "P-05 Latency Budget",
+    "path": "/evaluation-principles/structra-basics/pro/p-05-latency-budget-allocated",
+    "pathLabel": "Evaluation Principles / Structra Basics / Pro",
+    "searchText": "P-05 Latency Budget Evaluation Principles Structra Basics Pro evaluation-principles structra-basics pro p-05-latency-budget-allocated.md  evaluation-principles structra-basics pro p-05-latency-budget-allocated"
+  },
+  {
+    "title": "P-06 DB Pooling",
+    "path": "/evaluation-principles/structra-basics/pro/p-06-connection-pooling-for-database-connections",
+    "pathLabel": "Evaluation Principles / Structra Basics / Pro",
+    "searchText": "P-06 DB Pooling Evaluation Principles Structra Basics Pro evaluation-principles structra-basics pro p-06-connection-pooling-for-database-connections.md  evaluation-principles structra-basics pro p-06-connection-pooling-for-database-connections"
+  },
+  {
+    "title": "P-07 Async Processing",
+    "path": "/evaluation-principles/structra-basics/pro/p-07-async-processing-for-non-critical-path",
+    "pathLabel": "Evaluation Principles / Structra Basics / Pro",
+    "searchText": "P-07 Async Processing Evaluation Principles Structra Basics Pro evaluation-principles structra-basics pro p-07-async-processing-for-non-critical-path.md  evaluation-principles structra-basics pro p-07-async-processing-for-non-critical-path"
+  },
+  {
+    "title": "P-08 Consistency Model",
+    "path": "/evaluation-principles/structra-basics/pro/p-08-consistency-model-declared",
+    "pathLabel": "Evaluation Principles / Structra Basics / Pro",
+    "searchText": "P-08 Consistency Model Evaluation Principles Structra Basics Pro evaluation-principles structra-basics pro p-08-consistency-model-declared.md  evaluation-principles structra-basics pro p-08-consistency-model-declared"
+  },
+  {
+    "title": "P-09 CAP Tradeoff",
+    "path": "/evaluation-principles/structra-basics/pro/p-09-cap-theorem-trade-off-acknowledged",
+    "pathLabel": "Evaluation Principles / Structra Basics / Pro",
+    "searchText": "P-09 CAP Tradeoff Evaluation Principles Structra Basics Pro evaluation-principles structra-basics pro p-09-cap-theorem-trade-off-acknowledged.md  evaluation-principles structra-basics pro p-09-cap-theorem-trade-off-acknowledged"
+  },
+  {
+    "title": "P-10 Transaction Strategy",
+    "path": "/evaluation-principles/structra-basics/pro/p-10-distributed-transaction-handling",
+    "pathLabel": "Evaluation Principles / Structra Basics / Pro",
+    "searchText": "P-10 Transaction Strategy Evaluation Principles Structra Basics Pro evaluation-principles structra-basics pro p-10-distributed-transaction-handling.md  evaluation-principles structra-basics pro p-10-distributed-transaction-handling"
+  },
+  {
+    "title": "P-11 Idempotent Consumers",
+    "path": "/evaluation-principles/structra-basics/pro/p-11-idempotent-message-consumer",
+    "pathLabel": "Evaluation Principles / Structra Basics / Pro",
+    "searchText": "P-11 Idempotent Consumers Evaluation Principles Structra Basics Pro evaluation-principles structra-basics pro p-11-idempotent-message-consumer.md  evaluation-principles structra-basics pro p-11-idempotent-message-consumer"
+  },
+  {
+    "title": "P-12 Dead Letter Queue",
+    "path": "/evaluation-principles/structra-basics/pro/p-12-dead-letter-queue-for-message-failures",
+    "pathLabel": "Evaluation Principles / Structra Basics / Pro",
+    "searchText": "P-12 Dead Letter Queue Evaluation Principles Structra Basics Pro evaluation-principles structra-basics pro p-12-dead-letter-queue-for-message-failures.md  evaluation-principles structra-basics pro p-12-dead-letter-queue-for-message-failures"
+  },
+  {
+    "title": "P-13 Leader Consensus",
+    "path": "/evaluation-principles/structra-basics/pro/p-13-consensus-mechanism-for-leader-election",
+    "pathLabel": "Evaluation Principles / Structra Basics / Pro",
+    "searchText": "P-13 Leader Consensus Evaluation Principles Structra Basics Pro evaluation-principles structra-basics pro p-13-consensus-mechanism-for-leader-election.md  evaluation-principles structra-basics pro p-13-consensus-mechanism-for-leader-election"
+  },
+  {
+    "title": "P-14 Query Partitioning",
+    "path": "/evaluation-principles/structra-basics/pro/p-14-data-partitioning-does-not-break-query-patterns",
+    "pathLabel": "Evaluation Principles / Structra Basics / Pro",
+    "searchText": "P-14 Query Partitioning Evaluation Principles Structra Basics Pro evaluation-principles structra-basics pro p-14-data-partitioning-does-not-break-query-patterns.md  evaluation-principles structra-basics pro p-14-data-partitioning-does-not-break-query-patterns"
+  },
+  {
+    "title": "P-15 Circuit Breakers",
+    "path": "/evaluation-principles/structra-basics/pro/p-15-circuit-breaker-on-external-calls",
+    "pathLabel": "Evaluation Principles / Structra Basics / Pro",
+    "searchText": "P-15 Circuit Breakers Evaluation Principles Structra Basics Pro evaluation-principles structra-basics pro p-15-circuit-breaker-on-external-calls.md  evaluation-principles structra-basics pro p-15-circuit-breaker-on-external-calls"
+  },
+  {
+    "title": "P-16 Retry Backoff",
+    "path": "/evaluation-principles/structra-basics/pro/p-16-retry-logic-with-exponential-backoff",
+    "pathLabel": "Evaluation Principles / Structra Basics / Pro",
+    "searchText": "P-16 Retry Backoff Evaluation Principles Structra Basics Pro evaluation-principles structra-basics pro p-16-retry-logic-with-exponential-backoff.md  evaluation-principles structra-basics pro p-16-retry-logic-with-exponential-backoff"
+  },
+  {
+    "title": "P-17 SLA Alignment",
+    "path": "/evaluation-principles/structra-basics/pro/p-17-availability-sla-matched-to-architecture",
+    "pathLabel": "Evaluation Principles / Structra Basics / Pro",
+    "searchText": "P-17 SLA Alignment Evaluation Principles Structra Basics Pro evaluation-principles structra-basics pro p-17-availability-sla-matched-to-architecture.md  evaluation-principles structra-basics pro p-17-availability-sla-matched-to-architecture"
+  },
+  {
+    "title": "P-18 Graceful Degradation",
+    "path": "/evaluation-principles/structra-basics/pro/p-18-graceful-degradation-path-exists",
+    "pathLabel": "Evaluation Principles / Structra Basics / Pro",
+    "searchText": "P-18 Graceful Degradation Evaluation Principles Structra Basics Pro evaluation-principles structra-basics pro p-18-graceful-degradation-path-exists.md  evaluation-principles structra-basics pro p-18-graceful-degradation-path-exists"
+  },
+  {
+    "title": "P-19 Health Recovery",
+    "path": "/evaluation-principles/structra-basics/pro/p-19-health-check-and-auto-recovery-defined",
+    "pathLabel": "Evaluation Principles / Structra Basics / Pro",
+    "searchText": "P-19 Health Recovery Evaluation Principles Structra Basics Pro evaluation-principles structra-basics pro p-19-health-check-and-auto-recovery-defined.md  evaluation-principles structra-basics pro p-19-health-check-and-auto-recovery-defined"
+  },
+  {
+    "title": "P-20 Event Snapshots",
+    "path": "/evaluation-principles/structra-basics/pro/p-20-event-sourcing-requires-snapshot-strategy",
+    "pathLabel": "Evaluation Principles / Structra Basics / Pro",
+    "searchText": "P-20 Event Snapshots Evaluation Principles Structra Basics Pro evaluation-principles structra-basics pro p-20-event-sourcing-requires-snapshot-strategy.md  evaluation-principles structra-basics pro p-20-event-sourcing-requires-snapshot-strategy"
+  },
+  {
+    "title": "Getting Started",
+    "path": "/getting-started",
+    "pathLabel": "",
+    "searchText": "Getting Started getting-started.md  getting-started"
+  },
+  {
+    "title": "Structra Documentation",
+    "path": "/",
+    "pathLabel": "",
+    "searchText": "Structra Documentation index.md  "
+  }
+]

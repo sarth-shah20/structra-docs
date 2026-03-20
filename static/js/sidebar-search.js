@@ -5,11 +5,14 @@
   const COLLAPSED_CLASS = 'menu__list-item--collapsed';
   const MOBILE_BREAKPOINT = 996;
   const SUGGESTION_LIMIT = 6;
+  const SEARCH_INDEX_URL = '/docs-search-index.json';
 
   let preSearchCollapseState = null;
   let searchActive = false;
   let snapshotRootList = null;
   let activeSuggestionIndex = -1;
+  let searchIndex = [];
+  let searchIndexPromise = null;
 
   function norm(v) {
     return (v || '').toLowerCase().trim();
@@ -54,55 +57,48 @@
     activeSuggestionIndex = -1;
   }
 
-  function collectSuggestionCandidates() {
-    const menu = getSidebar();
-    if (!menu) return [];
+  function ensureSearchIndexLoaded() {
+    if (searchIndex.length) {
+      return Promise.resolve(searchIndex);
+    }
 
-    const links = Array.from(menu.querySelectorAll('a.menu__link[href]'));
-    const seen = new Set();
+    if (!searchIndexPromise) {
+      searchIndexPromise = fetch(SEARCH_INDEX_URL)
+        .then(function (response) {
+          if (!response.ok) {
+            throw new Error('Failed to load docs search index');
+          }
+          return response.json();
+        })
+        .then(function (items) {
+          searchIndex = Array.isArray(items) ? items : [];
+          return searchIndex;
+        })
+        .catch(function () {
+          searchIndex = [];
+          return searchIndex;
+        });
+    }
 
-    return links
-      .map((link) => {
-        const href = link.getAttribute('href') || '';
-        const label = (link.textContent || '').trim();
-        if (!href || !label || href.startsWith('#')) return null;
-
-        const absHref = new URL(href, window.location.origin).pathname + new URL(href, window.location.origin).hash;
-        if (seen.has(absHref)) return null;
-        seen.add(absHref);
-
-        const pathParts = [];
-        let currentItem = link.closest('.menu__list-item');
-        while (currentItem) {
-          const parentItem = currentItem.parentElement && currentItem.parentElement.closest('.menu__list-item');
-          if (!parentItem) break;
-          const parentLabel = getDirectLabel(parentItem);
-          if (parentLabel) pathParts.unshift(parentLabel);
-          currentItem = parentItem;
-        }
-
-        return {
-          href: absHref,
-          label,
-          pathLabel: pathParts.join(' / '),
-        };
-      })
-      .filter(Boolean);
+    return searchIndexPromise;
   }
 
   function scoreCandidate(candidate, query) {
-    const label = norm(candidate.label);
+    const label = norm(candidate.title);
     const pathLabel = norm(candidate.pathLabel);
+    const searchText = norm(candidate.searchText);
     if (!query) return 0;
     if (label === query) return 100;
     if (label.startsWith(query)) return 80;
     if (label.includes(query)) return 60;
     if (pathLabel.includes(query)) return 35;
+    if (searchText.includes(query)) return 30;
 
     const queryParts = query.split(/\s+/).filter(Boolean);
     const labelWords = label.split(/\s+/);
     const pathWords = pathLabel.split(/\s+/);
-    const allWords = labelWords.concat(pathWords);
+    const searchWords = searchText.split(/\s+/);
+    const allWords = labelWords.concat(pathWords, searchWords);
     const allPartsMatch = queryParts.every((part) => allWords.some((word) => word.startsWith(part) || word.includes(part)));
     return allPartsMatch ? 25 : -1;
   }
@@ -111,7 +107,7 @@
     const normalizedQuery = norm(query);
     if (!normalizedQuery) return [];
 
-    return collectSuggestionCandidates()
+    return searchIndex
       .map((candidate) => ({
         candidate,
         score: scoreCandidate(candidate, normalizedQuery),
@@ -119,7 +115,7 @@
       .filter((entry) => entry.score >= 0)
       .sort((a, b) => {
         if (b.score !== a.score) return b.score - a.score;
-        return a.candidate.label.localeCompare(b.candidate.label);
+        return a.candidate.title.localeCompare(b.candidate.title);
       })
       .slice(0, SUGGESTION_LIMIT)
       .map((entry) => entry.candidate);
@@ -164,12 +160,12 @@
       if (index === activeSuggestionIndex) {
         item.classList.add('is-active');
       }
-      item.setAttribute('data-href', suggestion.href);
+      item.setAttribute('data-href', suggestion.path);
       item.setAttribute('data-index', String(index));
 
       const title = document.createElement('div');
       title.className = 'sidebar-search-suggestion-title';
-      title.textContent = suggestion.label;
+      title.textContent = suggestion.title;
 
       const meta = document.createElement('div');
       meta.className = 'sidebar-search-suggestion-meta';
@@ -179,7 +175,7 @@
       item.appendChild(meta);
       item.addEventListener('mousedown', function (event) {
         event.preventDefault();
-        goToSuggestion(suggestion.href);
+        goToSuggestion(suggestion.path);
       });
 
       list.appendChild(item);
@@ -405,11 +401,15 @@
 
       input.addEventListener('input', function () {
         applyFilter(input);
-        renderSuggestions(input);
+        ensureSearchIndexLoaded().then(function () {
+          renderSuggestions(input);
+        });
       });
 
       input.addEventListener('focus', function () {
-        renderSuggestions(input);
+        ensureSearchIndexLoaded().then(function () {
+          renderSuggestions(input);
+        });
       });
 
       input.addEventListener('keydown', function (event) {
@@ -449,7 +449,9 @@
 
     if (input.value && input.value.trim()) {
       applyFilter(input);
-      renderSuggestions(input);
+      ensureSearchIndexLoaded().then(function () {
+        renderSuggestions(input);
+      });
     }
 
     return true;
