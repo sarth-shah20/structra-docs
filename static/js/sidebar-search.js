@@ -2,6 +2,7 @@
   const WRAP_ID = 'sidebar-search-wrap';
   const INPUT_ID = 'sidebar-search-input';
   const DROPDOWN_ID = 'sidebar-search-dropdown';
+  const MOBILE_ACTION_ICONS_ID = 'mobile-navbar-action-icons';
   const COLLAPSED_CLASS = 'menu__list-item--collapsed';
   const SUGGESTION_LIMIT = 6;
   const SEARCH_INDEX_URL = '/docs-search-index.json';
@@ -38,6 +39,55 @@
     }
 
     return slot;
+  }
+
+  function mountMobileQuickLinks() {
+    if (window.innerWidth > 996) return;
+    const brandRow = document.querySelector('.navbar-sidebar .navbar-sidebar__brand');
+    if (!brandRow) return;
+
+    let quickLinks = document.getElementById(MOBILE_ACTION_ICONS_ID);
+    if (!quickLinks) {
+      quickLinks = document.createElement('div');
+      quickLinks.id = MOBILE_ACTION_ICONS_ID;
+      quickLinks.className = 'mobile-navbar-action-icons';
+
+      const links = [
+        {
+          href: 'https://structra.cloud/app/workspaces',
+          title: 'Workspaces',
+          className: 'mobile-navbar-action-icon mobile-navbar-action-icon--workspaces',
+        },
+        {
+          href: 'https://structra.cloud/pricing',
+          title: 'Pricing',
+          className: 'mobile-navbar-action-icon mobile-navbar-action-icon--pricing',
+        },
+        {
+          href: 'https://structra.cloud/app',
+          title: 'Open App',
+          className: 'mobile-navbar-action-icon mobile-navbar-action-icon--app',
+        },
+      ];
+
+      links.forEach(function (linkDef) {
+        const link = document.createElement('a');
+        link.className = linkDef.className;
+        link.href = linkDef.href;
+        link.title = linkDef.title;
+        link.setAttribute('aria-label', linkDef.title);
+        quickLinks.appendChild(link);
+      });
+    }
+
+    if (!brandRow.contains(quickLinks)) {
+      const themeToggle = brandRow.querySelector('button[class*="colorModeToggle"], button[title*="mode"], button[aria-label*="color mode"]');
+      if (themeToggle && themeToggle.parentNode) {
+        themeToggle.parentNode.insertBefore(quickLinks, themeToggle);
+      } else {
+        brandRow.appendChild(quickLinks);
+      }
+    }
   }
 
   function getSuggestionDropdown() {
@@ -449,6 +499,7 @@
   }
 
   function ensureMounted() {
+    mountMobileQuickLinks();
     if (mountSearch()) return;
 
     let attempts = 0;
@@ -458,6 +509,7 @@
         clearInterval(timer);
       }
     }, 100);
+
   }
 
   const push = history.pushState;
