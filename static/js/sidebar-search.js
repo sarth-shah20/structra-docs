@@ -1,12 +1,15 @@
 (function () {
   const WRAP_ID = 'sidebar-search-wrap';
   const INPUT_ID = 'sidebar-search-input';
+  const DROPDOWN_ID = 'sidebar-search-dropdown';
   const COLLAPSED_CLASS = 'menu__list-item--collapsed';
   const MOBILE_BREAKPOINT = 996;
+  const SUGGESTION_LIMIT = 6;
 
   let preSearchCollapseState = null;
   let searchActive = false;
   let snapshotRootList = null;
+  let activeSuggestionIndex = -1;
 
   function norm(v) {
     return (v || '').toLowerCase().trim();
@@ -37,6 +40,175 @@
     }
 
     return slot;
+  }
+
+  function getSuggestionDropdown() {
+    return document.getElementById(DROPDOWN_ID);
+  }
+
+  function closeSuggestions() {
+    const dropdown = getSuggestionDropdown();
+    if (!dropdown) return;
+    dropdown.hidden = true;
+    dropdown.innerHTML = '';
+    activeSuggestionIndex = -1;
+  }
+
+  function collectSuggestionCandidates() {
+    const menu = getSidebar();
+    if (!menu) return [];
+
+    const links = Array.from(menu.querySelectorAll('a.menu__link[href]'));
+    const seen = new Set();
+
+    return links
+      .map((link) => {
+        const href = link.getAttribute('href') || '';
+        const label = (link.textContent || '').trim();
+        if (!href || !label || href.startsWith('#')) return null;
+
+        const absHref = new URL(href, window.location.origin).pathname + new URL(href, window.location.origin).hash;
+        if (seen.has(absHref)) return null;
+        seen.add(absHref);
+
+        const pathParts = [];
+        let currentItem = link.closest('.menu__list-item');
+        while (currentItem) {
+          const parentItem = currentItem.parentElement && currentItem.parentElement.closest('.menu__list-item');
+          if (!parentItem) break;
+          const parentLabel = getDirectLabel(parentItem);
+          if (parentLabel) pathParts.unshift(parentLabel);
+          currentItem = parentItem;
+        }
+
+        return {
+          href: absHref,
+          label,
+          pathLabel: pathParts.join(' / '),
+        };
+      })
+      .filter(Boolean);
+  }
+
+  function scoreCandidate(candidate, query) {
+    const label = norm(candidate.label);
+    const pathLabel = norm(candidate.pathLabel);
+    if (!query) return 0;
+    if (label === query) return 100;
+    if (label.startsWith(query)) return 80;
+    if (label.includes(query)) return 60;
+    if (pathLabel.includes(query)) return 35;
+
+    const queryParts = query.split(/\s+/).filter(Boolean);
+    const labelWords = label.split(/\s+/);
+    const pathWords = pathLabel.split(/\s+/);
+    const allWords = labelWords.concat(pathWords);
+    const allPartsMatch = queryParts.every((part) => allWords.some((word) => word.startsWith(part) || word.includes(part)));
+    return allPartsMatch ? 25 : -1;
+  }
+
+  function getSuggestions(query) {
+    const normalizedQuery = norm(query);
+    if (!normalizedQuery) return [];
+
+    return collectSuggestionCandidates()
+      .map((candidate) => ({
+        candidate,
+        score: scoreCandidate(candidate, normalizedQuery),
+      }))
+      .filter((entry) => entry.score >= 0)
+      .sort((a, b) => {
+        if (b.score !== a.score) return b.score - a.score;
+        return a.candidate.label.localeCompare(b.candidate.label);
+      })
+      .slice(0, SUGGESTION_LIMIT)
+      .map((entry) => entry.candidate);
+  }
+
+  function goToSuggestion(href) {
+    if (!href) return;
+    closeSuggestions();
+    window.location.assign(href);
+  }
+
+  function renderSuggestions(input) {
+    const dropdown = getSuggestionDropdown();
+    if (!dropdown) return;
+
+    const query = input.value || '';
+    const suggestions = getSuggestions(query);
+
+    if (!norm(query)) {
+      closeSuggestions();
+      return;
+    }
+
+    if (suggestions.length === 0) {
+      dropdown.hidden = false;
+      dropdown.innerHTML = '<div class="sidebar-search-empty">No matching docs pages.</div>';
+      activeSuggestionIndex = -1;
+      return;
+    }
+
+    activeSuggestionIndex = 0;
+    dropdown.hidden = false;
+    dropdown.innerHTML = '';
+
+    const list = document.createElement('div');
+    list.className = 'sidebar-search-suggestion-list';
+
+    suggestions.forEach((suggestion, index) => {
+      const item = document.createElement('button');
+      item.type = 'button';
+      item.className = 'sidebar-search-suggestion-item';
+      if (index === activeSuggestionIndex) {
+        item.classList.add('is-active');
+      }
+      item.setAttribute('data-href', suggestion.href);
+      item.setAttribute('data-index', String(index));
+
+      const title = document.createElement('div');
+      title.className = 'sidebar-search-suggestion-title';
+      title.textContent = suggestion.label;
+
+      const meta = document.createElement('div');
+      meta.className = 'sidebar-search-suggestion-meta';
+      meta.textContent = suggestion.pathLabel || 'Documentation';
+
+      item.appendChild(title);
+      item.appendChild(meta);
+      item.addEventListener('mousedown', function (event) {
+        event.preventDefault();
+        goToSuggestion(suggestion.href);
+      });
+
+      list.appendChild(item);
+    });
+
+    dropdown.appendChild(list);
+  }
+
+  function updateActiveSuggestion(nextIndex) {
+    const dropdown = getSuggestionDropdown();
+    if (!dropdown || dropdown.hidden) return;
+    const items = Array.from(dropdown.querySelectorAll('.sidebar-search-suggestion-item'));
+    if (!items.length) return;
+
+    activeSuggestionIndex = ((nextIndex % items.length) + items.length) % items.length;
+    items.forEach((item, index) => {
+      item.classList.toggle('is-active', index === activeSuggestionIndex);
+    });
+    items[activeSuggestionIndex].scrollIntoView({block: 'nearest'});
+  }
+
+  function commitActiveSuggestion() {
+    const dropdown = getSuggestionDropdown();
+    if (!dropdown || dropdown.hidden) return false;
+    const items = Array.from(dropdown.querySelectorAll('.sidebar-search-suggestion-item'));
+    const activeItem = items[activeSuggestionIndex];
+    if (!activeItem) return false;
+    goToSuggestion(activeItem.getAttribute('data-href'));
+    return true;
   }
 
   function getDirectLabel(li) {
@@ -220,13 +392,50 @@
       input.id = INPUT_ID;
       input.className = 'sidebar-search-input';
       input.type = 'search';
-      input.placeholder = 'Search sidebar...';
-      input.setAttribute('aria-label', 'Search sidebar navigation');
+      input.placeholder = 'Search docs...';
+      input.setAttribute('aria-label', 'Search documentation navigation');
 
       wrap.appendChild(input);
 
+      const dropdown = document.createElement('div');
+      dropdown.id = DROPDOWN_ID;
+      dropdown.className = 'sidebar-search-dropdown';
+      dropdown.hidden = true;
+      wrap.appendChild(dropdown);
+
       input.addEventListener('input', function () {
         applyFilter(input);
+        renderSuggestions(input);
+      });
+
+      input.addEventListener('focus', function () {
+        renderSuggestions(input);
+      });
+
+      input.addEventListener('keydown', function (event) {
+        const dropdownEl = getSuggestionDropdown();
+        const dropdownOpen = dropdownEl && !dropdownEl.hidden;
+
+        if (event.key === 'ArrowDown' && dropdownOpen) {
+          event.preventDefault();
+          updateActiveSuggestion(activeSuggestionIndex + 1);
+          return;
+        }
+
+        if (event.key === 'ArrowUp' && dropdownOpen) {
+          event.preventDefault();
+          updateActiveSuggestion(activeSuggestionIndex - 1);
+          return;
+        }
+
+        if (event.key === 'Enter' && dropdownOpen && commitActiveSuggestion()) {
+          event.preventDefault();
+          return;
+        }
+
+        if (event.key === 'Escape') {
+          closeSuggestions();
+        }
       });
     }
 
@@ -240,6 +449,7 @@
 
     if (input.value && input.value.trim()) {
       applyFilter(input);
+      renderSuggestions(input);
     }
 
     return true;
@@ -275,4 +485,10 @@
   window.addEventListener('load', ensureMounted);
   document.addEventListener('DOMContentLoaded', ensureMounted);
   window.addEventListener('resize', ensureMounted);
+  document.addEventListener('mousedown', function (event) {
+    const wrap = document.getElementById(WRAP_ID);
+    if (wrap && !wrap.contains(event.target)) {
+      closeSuggestions();
+    }
+  });
 })();

@@ -237,6 +237,7 @@ body {
 }
 
 .sidebar-search-wrap {
+  position: relative;
   padding: 0.6rem 0.7rem 0.75rem;
 }
 
@@ -260,6 +261,69 @@ body {
   outline: none;
   border-color: var(--structra-primary);
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.sidebar-search-dropdown {
+  position: absolute;
+  top: calc(100% + 0.45rem);
+  left: 0.7rem;
+  right: 0.7rem;
+  background: var(--structra-bg-elevated);
+  border: 1px solid var(--structra-border);
+  border-radius: 12px;
+  box-shadow: var(--structra-shadow);
+  overflow: hidden;
+  z-index: 70;
+}
+
+.navbar-search-slot .sidebar-search-dropdown {
+  left: 0;
+  right: 0;
+}
+
+.sidebar-search-empty {
+  padding: 0.8rem 0.9rem;
+  font-size: 0.82rem;
+  color: var(--structra-text-subtle);
+}
+
+.sidebar-search-suggestion-list {
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.sidebar-search-suggestion-item {
+  width: 100%;
+  text-align: left;
+  border: 0;
+  border-bottom: 1px solid var(--structra-border);
+  background: transparent;
+  color: inherit;
+  padding: 0.72rem 0.9rem;
+  cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease;
+  font-family: var(--ifm-font-family-base);
+}
+
+.sidebar-search-suggestion-item:last-child {
+  border-bottom: 0;
+}
+
+.sidebar-search-suggestion-item:hover,
+.sidebar-search-suggestion-item.is-active {
+  background: rgba(59, 130, 246, 0.1);
+}
+
+.sidebar-search-suggestion-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--structra-text);
+}
+
+.sidebar-search-suggestion-meta {
+  margin-top: 0.15rem;
+  font-size: 0.74rem;
+  color: var(--structra-text-subtle);
 }
 
 .menu {
@@ -541,6 +605,26 @@ div[class*='announcementBarContent'] a {
   background: #ffffff;
   color: #0f172a;
   border-color: #c5d2ee;
+}
+
+[data-theme='light'] .sidebar-search-dropdown {
+  background: #ffffff;
+  border-color: #c5d2ee;
+  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.12);
+}
+
+[data-theme='light'] .sidebar-search-suggestion-item:hover,
+[data-theme='light'] .sidebar-search-suggestion-item.is-active {
+  background: #eaf1ff;
+}
+
+[data-theme='light'] .sidebar-search-suggestion-title {
+  color: #0f172a;
+}
+
+[data-theme='light'] .sidebar-search-suggestion-meta,
+[data-theme='light'] .sidebar-search-empty {
+  color: #475569;
 }
 
 [data-theme='light'] .menu__link {
