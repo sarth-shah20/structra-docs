@@ -44,11 +44,10 @@
 
   function mountMobileQuickLinks() {
     if (window.innerWidth > 996) return;
-    const sidebar = document.querySelector(".navbar-sidebar");
     const brandRow = document.querySelector(
       ".navbar-sidebar .navbar-sidebar__brand",
     );
-    if (!brandRow || !sidebar) return;
+    if (!brandRow) return;
 
     let quickLinks = document.getElementById(MOBILE_ACTION_ICONS_ID);
     if (!quickLinks) {
@@ -86,23 +85,20 @@
       });
     }
 
-    const themeToggle = sidebar.querySelector(
-      'button[class*="colorModeToggle"], button[class*="toggleButton"], button[title*="mode"], button[aria-label*="mode"]',
-    );
-    const themeToggleParent =
-      themeToggle && themeToggle.closest(".navbar-sidebar__brand");
+    brandRow.classList.add("mobile-navbar-action-row");
 
-    if (themeToggleParent) {
-      themeToggleParent.classList.add("mobile-navbar-action-row");
-      if (!themeToggleParent.contains(quickLinks)) {
-        themeToggleParent.insertBefore(quickLinks, themeToggle);
+    const closeButton = brandRow.querySelector(".navbar-sidebar__close");
+    if (closeButton) {
+      // Keep the 4 action icons grouped immediately to the left of close (X).
+      if (quickLinks.parentElement !== brandRow || quickLinks.nextSibling !== closeButton) {
+        brandRow.insertBefore(quickLinks, closeButton);
       }
-    } else {
-      // Fallback: always mount into the brand bar regardless
-      brandRow.classList.add("mobile-navbar-action-row");
-      if (!brandRow.contains(quickLinks)) {
-        brandRow.appendChild(quickLinks);
-      }
+      return;
+    }
+
+    // Fallback: append if close button is not yet available.
+    if (quickLinks.parentElement !== brandRow) {
+      brandRow.appendChild(quickLinks);
     }
   }
 

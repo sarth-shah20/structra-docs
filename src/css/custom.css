@@ -808,7 +808,7 @@ div[class*='announcementBarContent'] a {
     display: flex;
     align-items: center;
     gap: 0.3rem;
-    margin-right: 0.35rem;
+    margin-right: 0.12rem;
     flex-wrap: nowrap;
   }
 
@@ -860,10 +860,15 @@ div[class*='announcementBarContent'] a {
     flex-wrap: nowrap;
     white-space: nowrap;
     width: 100%;
+    justify-content: flex-end;
   }
 
   .mobile-navbar-action-row > * {
     flex: 0 0 auto;
+  }
+
+  .mobile-navbar-action-row .navbar-sidebar__close {
+    margin-left: 0;
   }
 
   .mobile-navbar-action-row button,
