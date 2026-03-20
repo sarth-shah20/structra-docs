@@ -3,7 +3,6 @@
   const INPUT_ID = 'sidebar-search-input';
   const DROPDOWN_ID = 'sidebar-search-dropdown';
   const COLLAPSED_CLASS = 'menu__list-item--collapsed';
-  const MOBILE_BREAKPOINT = 996;
   const SUGGESTION_LIMIT = 6;
   const SEARCH_INDEX_URL = '/docs-search-index.json';
 
@@ -20,10 +19,6 @@
 
   function getSidebar() {
     return document.querySelector('.theme-doc-sidebar-container nav.menu');
-  }
-
-  function isMobileView() {
-    return window.innerWidth <= MOBILE_BREAKPOINT;
   }
 
   function getNavbarDesktopTarget() {
@@ -373,7 +368,7 @@
 
   function mountSearch() {
     const menu = getSidebar();
-    const mountTarget = isMobileView() ? menu : getNavbarDesktopTarget();
+    const mountTarget = getNavbarDesktopTarget();
     if (!menu || !mountTarget) return false;
 
     let wrap = document.getElementById(WRAP_ID);
@@ -440,11 +435,7 @@
     }
 
     if (!mountTarget.contains(wrap)) {
-      if (isMobileView()) {
-        mountTarget.prepend(wrap);
-      } else {
-        mountTarget.appendChild(wrap);
-      }
+      mountTarget.appendChild(wrap);
     }
 
     if (input.value && input.value.trim()) {

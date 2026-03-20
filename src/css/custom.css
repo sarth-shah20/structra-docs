@@ -737,6 +737,45 @@ div[class*='announcementBarContent'] a {
     backdrop-filter: blur(10px);
   }
 
+  .navbar-sidebar {
+    border-left: 1px solid var(--structra-border);
+  }
+
+  .navbar-sidebar__items {
+    padding-top: 0.75rem;
+  }
+
+  .navbar-sidebar__item.menu__list-item .menu__link,
+  .navbar-sidebar__item .navbar__link {
+    border-radius: 0;
+    min-height: 2.45rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .pagination-nav {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+
+  .pagination-nav__link {
+    border-radius: 0;
+    padding: 0.75rem 0.82rem;
+  }
+
+  .pagination-nav__label {
+    font-size: 0.72rem;
+    line-height: 1.1;
+  }
+
+  .pagination-nav__sublabel {
+    font-size: 1rem;
+    line-height: 1.22;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
   .theme-doc-markdown h1 {
     font-size: 2rem;
   }
